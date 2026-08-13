@@ -112,6 +112,14 @@ function renderSemNav(){
 /* =======================================================
    RENDER: tarjeta de curso (vista semestre)
 ======================================================= */
+function openMaterial(url, tipo, codigo) {
+  if (url) {
+    window.open(url, '_blank');
+  } else {
+    alert(`Aún no hay ${tipo} subido para el curso ${codigo}.`);
+  }
+}
+
 function courseCard(curso, courseMap){
   const elective = isElectivo(curso.nombre);
   const nombre = nombreLimpio(curso.nombre);
@@ -123,6 +131,11 @@ function courseCard(curso, courseMap){
       }).join('') + `</div>`
     : `<span class="prq-none">Sin prerrequisitos</span>`;
 
+  // Aseguramos pasar las propiedades o null/undefined
+  const silaboUrl = curso.silabo ? `'${curso.silabo}'` : 'null';
+  const practicasUrl = curso.practicas ? `'${curso.practicas}'` : 'null';
+  const examenesUrl = curso.examenes ? `'${curso.examenes}'` : 'null';
+
   return `
     <div class="course-card ${elective?'elective':''}">
       <div class="course-top">
@@ -133,9 +146,9 @@ function courseCard(curso, courseMap){
       ${elective ? `<div class="badge-row"><span class="badge">Electivo</span></div>` : ``}
       ${prqHtml}
       <div class="materials">
-        <div class="mat-btn" title="Sílabo" onclick="alert('Aquí se enlazaría el sílabo del curso ${curso.codigo}.')">${ICONS.silabo}<span class="l">Sílabo</span></div>
-        <div class="mat-btn" title="Prácticas" onclick="alert('Aquí se enlazarían las prácticas del curso ${curso.codigo}.')">${ICONS.practica}<span class="l">Prácticas</span></div>
-        <div class="mat-btn" title="Exámenes" onclick="alert('Aquí se enlazarían los exámenes del curso ${curso.codigo}.')">${ICONS.examen}<span class="l">Exámenes</span></div>
+        <div class="mat-btn" title="Sílabo" onclick="openMaterial(${silaboUrl}, 'sílabo', '${curso.codigo}')">${ICONS.silabo}<span class="l">Sílabo</span></div>
+        <div class="mat-btn" title="Prácticas" onclick="openMaterial(${practicasUrl}, 'prácticas', '${curso.codigo}')">${ICONS.practica}<span class="l">Prácticas</span></div>
+        <div class="mat-btn" title="Exámenes" onclick="openMaterial(${examenesUrl}, 'exámenes', '${curso.codigo}')">${ICONS.examen}<span class="l">Exámenes</span></div>
       </div>
     </div>
   `;
