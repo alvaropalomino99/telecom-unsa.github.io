@@ -177,20 +177,20 @@ const planesEstudio = {
                     {
                         nombre: "Primer Semestre",
                         cursos: [
-                            { codigo: "2501101", nombre: "Metodología del Trabajo Académico", cred: 2, prq: [] },
+                            { codigo: "2501101", nombre: "Metodología del Trabajo Académico", cred: 4, prq: [] },
                             { codigo: "2501102", nombre: "Matemática Básica", cred: 4, prq: [] },
                             { codigo: "2501103", nombre: "Introducción a la Ingeniería", cred: 3, prq: [] },
                             { codigo: "2501104", nombre: "Cálculo en una Variable", cred: 5, prq: [] },
                             { codigo: "2501105", nombre: "Física I", cred: 4, prq: [] },
                             { codigo: "2501106", nombre: "Laboratorio de Física I", cred: 1, prq: [] },
-                            { codigo: "2501107", nombre: "Diseño Gráfico para Telecomunicaciones", cred: 3, prq: [] },
+                            { codigo: "2501107", nombre: "Diseño Gráfico para Telecomunicaciones", cred: 2, prq: [] },
                             { codigo: "2501108", nombre: "Laboratorio de Diseño Gráfico para Telecomunicaciones", cred: 1, prq: [] }
                         ]
                     },
                     {
                         nombre: "Segundo Semestre",
                         cursos: [
-                            { codigo: "2501209", nombre: "Lingüística, Comprensión y Redacción Académica", cred: 2, prq: [] },
+                            { codigo: "2501209", nombre: "Lingüística, Comprensión y Redacción Académica", cred: 3, prq: [] },
                             { codigo: "2501210", nombre: "Álgebra Lineal", cred: 4, prq: [] },
                             { codigo: "2501211", nombre: "Realidad Nacional", cred: 2, prq: [] },
                             { codigo: "2501212", nombre: "Cálculo en Varias Variables", cred: 5, prq: ["2501104"] },
