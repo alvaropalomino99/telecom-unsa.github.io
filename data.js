@@ -63,8 +63,10 @@ const planesEstudio = {
                         { codigo: "1703137", nombre: "Sistemas Digitales", cred: 3, prq: ["1702229"] },
                         { codigo: "1703138", nombre: "Inglés Básico", cred: 1, prq: [] },
                         { codigo: "1703139", nombre: "Sistemas de Control (E)", cred: 3, prq: ["1702229"] },
-                        { codigo: "1703140", nombre: "Electrónica Industrial (E)", cred: 3, prq: ["1702229", "1702230"] },
+                        { codigo: "1703140", nombre: "Electrónica Industrial (E)", cred: 3, prq: ["1702229", "1702230"] }, silabo: "https://drive.google.com/file/d/1mEH-o2BUw_uhhl5lg_4Hz1j-gyC_JE3c/view?usp=drive_link",
                         { codigo: "1703178", nombre: "Procesamiento Digital de Señales", cred: 3, prq: ["1702228"] },
+
+               
                         { codigo: "1703179", nombre: "Laboratorio de Procesamiento Digital de Señales", cred: 1, prq: ["1702228"] }
                     ]},
                     { nombre: "Segundo Semestre", cursos: [
