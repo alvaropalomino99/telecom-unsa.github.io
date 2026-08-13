@@ -62,6 +62,26 @@ const ICONS = {
 };
 
 /* =======================================================
+   Manejador global de materiales
+======================================================= */
+function handleMaterialClick(codigo, tipo) {
+  const courseMap = getCourseMap(state.plan);
+  const curso = courseMap[codigo];
+  
+  if (!curso) {
+    alert(`No se encontró la información del curso ${codigo}.`);
+    return;
+  }
+
+  const url = curso[tipo];
+  if (url && url.trim().length > 0) {
+    window.open(url, '_blank');
+  } else {
+    alert(`Aún no hay ${tipo} subido para el curso ${codigo}.`);
+  }
+}
+
+/* =======================================================
    RENDER: cabecera / stats / selects
 ======================================================= */
 function fillPlanSelect(){
@@ -112,14 +132,6 @@ function renderSemNav(){
 /* =======================================================
    RENDER: tarjeta de curso (vista semestre)
 ======================================================= */
-function openMaterial(url, tipo, codigo) {
-  if (url) {
-    window.open(url, '_blank');
-  } else {
-    alert(`Aún no hay ${tipo} subido para el curso ${codigo}.`);
-  }
-}
-
 function courseCard(curso, courseMap){
   const elective = isElectivo(curso.nombre);
   const nombre = nombreLimpio(curso.nombre);
@@ -131,10 +143,6 @@ function courseCard(curso, courseMap){
       }).join('') + `</div>`
     : `<span class="prq-none">Sin prerrequisitos</span>`;
 
-  const silaboUrl = curso.silabo ? `'${curso.silabo}'` : 'null';
-  const practicasUrl = curso.practicas ? `'${curso.practicas}'` : 'null';
-  const examenesUrl = curso.examenes ? `'${curso.examenes}'` : 'null';
-
   return `
     <div class="course-card ${elective?'elective':''}">
       <div class="course-top">
@@ -145,9 +153,9 @@ function courseCard(curso, courseMap){
       ${elective ? `<div class="badge-row"><span class="badge">Electivo</span></div>` : ``}
       ${prqHtml}
       <div class="materials">
-        <div class="mat-btn" title="Sílabo" onclick="openMaterial(${silaboUrl}, 'sílabo', '${curso.codigo}')">${ICONS.silabo}<span class="l">Sílabo</span></div>
-        <div class="mat-btn" title="Prácticas" onclick="openMaterial(${practicasUrl}, 'prácticas', '${curso.codigo}')">${ICONS.practica}<span class="l">Prácticas</span></div>
-        <div class="mat-btn" title="Exámenes" onclick="openMaterial(${examenesUrl}, 'exámenes', '${curso.codigo}')">${ICONS.examen}<span class="l">Exámenes</span></div>
+        <div class="mat-btn" title="Sílabo" onclick="handleMaterialClick('${curso.codigo}', 'silabo')">${ICONS.silabo}<span class="l">Sílabo</span></div>
+        <div class="mat-btn" title="Prácticas" onclick="handleMaterialClick('${curso.codigo}', 'practicas')">${ICONS.practica}<span class="l">Prácticas</span></div>
+        <div class="mat-btn" title="Exámenes" onclick="handleMaterialClick('${curso.codigo}', 'examenes')">${ICONS.examen}<span class="l">Exámenes</span></div>
       </div>
     </div>
   `;
@@ -212,6 +220,11 @@ function renderMain(){
                     <div class="mini-card ${elective?'elective':''}">
                       <div class="mini-top"><span>${nombreLimpio(c.nombre)}</span><span class="mini-cred">${c.cred}cr</span></div>
                       <div class="mini-info">${c.codigo} · ${prq}</div>
+                      <div class="materials" style="margin-top:6px;">
+                        <div class="mat-btn" title="Sílabo" onclick="handleMaterialClick('${c.codigo}', 'silabo')">${ICONS.silabo}</div>
+                        <div class="mat-btn" title="Prácticas" onclick="handleMaterialClick('${c.codigo}', 'practicas')">${ICONS.practica}</div>
+                        <div class="mat-btn" title="Exámenes" onclick="handleMaterialClick('${c.codigo}', 'examenes')">${ICONS.examen}</div>
+                      </div>
                     </div>
                   `;
                 }).join('')}
