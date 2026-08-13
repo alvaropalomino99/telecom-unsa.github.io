@@ -3,55 +3,318 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Telec UNSA Repo</title>
+  <title>Repositorio Telecom UNSA</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f9; color: #333; }
-    header { background: #6b1d2f; color: white; text-align: center; padding: 1.5rem; }
-    nav { display: flex; overflow-x: auto; background: #fff; border-bottom: 2px solid #ddd; padding: 0.5rem; }
-    nav button { background: none; border: none; padding: 10px 15px; font-weight: bold; cursor: pointer; color: #6b1d2f; }
-    nav button:hover { background: #eee; border-radius: 5px; }
-    main { padding: 20px; max-width: 1000px; margin: auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .card h3 { margin-top: 0; color: #6b1d2f; }
-    .btn-drive { display: inline-block; margin-top: 10px; padding: 8px 12px; background: #6b1d2f; color: white; text-decoration: none; border-radius: 4px; font-size: 0.9rem; }
+    :root {
+      --unsa-red: #6b1d2f;
+      --unsa-red-hover: #501321;
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+    header {
+      background: var(--unsa-red);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+    }
+    header h1 { margin: 0; font-size: 1.8rem; }
+    header p { margin: 5px 0 0; font-size: 0.95rem; opacity: 0.9; }
+
+    /* Pestañas de Malla */
+    .malla-selector {
+      display: flex;
+      justify-content: center;
+      background: #e0e0e0;
+      border-bottom: 2px solid #ccc;
+    }
+    .malla-btn {
+      padding: 12px 24px;
+      font-weight: bold;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #555;
+    }
+    .malla-btn.active {
+      background: var(--card-bg);
+      color: var(--unsa-red);
+      border-bottom: 3px solid var(--unsa-red);
+    }
+
+    /* Pestañas de Semestres */
+    .semestre-selector {
+      display: flex;
+      overflow-x: auto;
+      background: var(--card-bg);
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .sem-btn {
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 8px 14px;
+      margin-right: 8px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 600;
+      color: #444;
+    }
+    .sem-btn.active {
+      background: var(--unsa-red);
+      color: white;
+      border-color: var(--unsa-red);
+    }
+
+    main { padding: 20px; max-width: 1200px; margin: auto; }
+    .section-title { color: var(--unsa-red); border-bottom: 2px solid var(--unsa-red); padding-bottom: 5px; margin-bottom: 20px; }
+
+    /* Card Grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--card-bg);
+      padding: 18px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 4px solid var(--unsa-red);
+    }
+    .card-header { margin-bottom: 10px; }
+    .card-code { font-size: 0.75rem; color: #777; font-weight: bold; }
+    .card-title { font-size: 1.05rem; margin: 4px 0; color: #111; font-weight: bold; }
+    .card-info { font-size: 0.85rem; color: #555; margin-bottom: 12px; }
+    .card-info span { display: block; margin-top: 3px; }
+
+    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-drive {
+      flex: 1;
+      text-align: center;
+      padding: 6px 10px;
+      background: var(--unsa-red);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .btn-drive:hover { background: var(--unsa-red-hover); }
   </style>
 </head>
 <body>
 
   <header>
     <h1>REPOSITORIO DE TELECOMUNICACIONES UNSA</h1>
-    <p>Apuntes, exámenes, prácticas y sílabos organizados por la comunidad</p>
+    <p>Documentación, bancos de preguntas y recursos por asignatura</p>
   </header>
 
-  <nav>
-    <button>1er Semestre</button>
-    <button>2do Semestre</button>
-    <button>3er Semestre</button>
-    <button>4to Semestre</button>
-    <button>5to Semestre</button>
-  </nav>
+  <!-- Selección de Malla -->
+  <div class="malla-selector">
+    <button class="malla-btn active" onclick="cambiarMalla('2017')">Malla 2017</button>
+    <button class="malla-btn" onclick="cambiarMalla('2025')">Malla 2025</button>
+  </div>
+
+  <!-- Selección de Semestre -->
+  <div class="semestre-selector" id="semestreNav">
+    <!-- Se genera dinámicamente -->
+  </div>
 
   <main>
-    <h2>2do Semestre</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Sistemas de Comunicaciones I</h3>
-        <p>Códigos, exámenes pasados y guías de laboratorio.</p>
-        <a href="#" class="btn-drive" target="_blank">Abrir Carpeta Drive</a>
-      </div>
-      <div class="card">
-        <h3>Redes de Computadoras II</h3>
-        <p>Sílabos, bancos de preguntas y simulaciones.</p>
-        <a href="#" class="btn-drive" target="_blank">Abrir Carpeta Drive</a>
-      </div>
-      <div class="card">
-        <h3>Antenas</h3>
-        <p>Prácticas resueltas y notas de profesores.</p>
-        <a href="#" class="btn-drive" target="_blank">Abrir Carpeta Drive</a>
-      </div>
+    <h2 class="section-title" id="tituloSemestre">1er Semestre</h2>
+    <div class="grid" id="cursosGrid">
+      <!-- Tarjetas de Cursos dinámicas -->
     </div>
   </main>
 
+  <script>
+    const malla2017 = {
+      1: [
+        { cod: "2501101", nom: "Metodología del Trabajo Académico", cred: 2, prq: "Ninguno" },
+        { cod: "2501102", nom: "Matemática Básica", cred: 4, prq: "Ninguno" },
+        { cod: "2501103", nom: "Introducción a la Ingeniería", cred: 2, prq: "Ninguno" },
+        { cod: "2501104", nom: "Cálculo en una Variable", cred: 4, prq: "Ninguno" },
+        { cod: "2501105", nom: "Física I", cred: 3, prq: "Ninguno" },
+        { cod: "2501106", nom: "Laboratorio de Física I", cred: 1, prq: "Ninguno" },
+        { cod: "2501107", nom: "Diseño Gráfico para Telecomunicaciones", cred: 2, prq: "Ninguno" },
+        { cod: "2501108", nom: "Lab. de Diseño Gráfico para Telecom.", cred: 1, prq: "Ninguno" }
+      ],
+      2: [
+        { cod: "2501209", nom: "Lingüística, Comprensión y Redacción Académica", cred: 2, prq: "Ninguno" },
+        { cod: "2501210", nom: "Álgebra Lineal", cred: 3, prq: "Ninguno" },
+        { cod: "2501211", nom: "Realidad Nacional", cred: 2, prq: "Ninguno" },
+        { cod: "2501212", nom: "Cálculo en Varias Variables", cred: 4, prq: "2501104" },
+        { cod: "2501213", nom: "Física II", cred: 3, prq: "2501105, 2501106" },
+        { cod: "2501214", nom: "Laboratorio de Física II", cred: 1, prq: "2501105, 2501106" },
+        { cod: "2501215", nom: "Programación I", cred: 3, prq: "Ninguno" },
+        { cod: "2501216", nom: "Laboratorio de Programación I", cred: 1, prq: "Ninguno" }
+      ],
+      3: [
+        { cod: "2502117", nom: "Ecuaciones Diferenciales", cred: 4, prq: "2501210, 2501212" },
+        { cod: "2502118", nom: "Electrotecnia I", cred: 4, prq: "2501213, 2501214" },
+        { cod: "2502119", nom: "Laboratorio de Electrotecnia I", cred: 1, prq: "2501213, 2501214" },
+        { cod: "2502120", nom: "Física III", cred: 3, prq: "2501213, 2501214" },
+        { cod: "2502121", nom: "Laboratorio de Física III", cred: 1, prq: "2501213, 2501214" },
+        { cod: "2502122", nom: "Ciudadanía e Interculturalidad", cred: 2, prq: "Ninguno" },
+        { cod: "2502123", nom: "Programación II", cred: 3, prq: "2501215, 2501216" },
+        { cod: "2502124", nom: "Laboratorio de Programación II", cred: 1, prq: "2501215, 2501216" }
+      ],
+      4: [
+        { cod: "2502225", nom: "Ecología y Conservación Ambiental", cred: 2, prq: "Ninguno" },
+        { cod: "2502226", nom: "Electrotecnia II", cred: 4, prq: "2502118, 2502119" },
+        { cod: "2502227", nom: "Laboratorio de Electrotecnia II", cred: 1, prq: "2502118, 2502119" },
+        { cod: "2502228", nom: "Métodos Numéricos", cred: 3, prq: "2502123, 2502124" },
+        { cod: "2502229", nom: "Señales y Sistemas", cred: 4, prq: "2501212, 2502117" },
+        { cod: "2502230", nom: "Teoría de Campos Electromagnéticos", cred: 4, prq: "2502120, 2502121" }
+      ],
+      5: [
+        { cod: "2503131", nom: "Inglés", cred: 2, prq: "Ninguno" },
+        { cod: "2503132", nom: "Estadística y Probabilidad para Telecom.", cred: 3, prq: "Ninguno" },
+        { cod: "2503133", nom: "Desarrollo Emocional, Gestión y Liderazgo", cred: 2, prq: "Ninguno" },
+        { cod: "2503134", nom: "Dispositivos Electrónicos", cred: 4, prq: "2502226, 2502227" },
+        { cod: "2503135", nom: "Sistemas Digitales", cred: 3, prq: "2502228" },
+        { cod: "2503136", nom: "Laboratorio de Sistemas Digitales", cred: 1, prq: "2502228" },
+        { cod: "2503137", nom: "Telecomunicaciones I", cred: 4, prq: "2502229, 2502230" }
+      ],
+      6: [
+        { cod: "2503238", nom: "Políticas Públicas y Anticorrupción", cred: 2, prq: "Ninguno" },
+        { cod: "2503239", nom: "Microprocesador y Microcontrolador", cred: 3, prq: "2503135, 2503136" },
+        { cod: "2503240", nom: "Lab. Microprocesador y Microcontrolador", cred: 1, prq: "2503135, 2503136" },
+        { cod: "2503241", nom: "Emprendedurismo e Innovación en Ing.", cred: 2, prq: "Ninguno" },
+        { cod: "2503242", nom: "Circuitos Electrónicos", cred: 3, prq: "2503134" },
+        { cod: "2503243", nom: "Laboratorio de Circuitos Electrónicos", cred: 1, prq: "2503134" },
+        { cod: "2503244", nom: "Telecomunicaciones II", cred: 4, prq: "2503137" },
+        { cod: "2503245", nom: "Ingeniería de Mantenimiento (E)", cred: 3, prq: "2503132" },
+        { cod: "2503246", nom: "Sistemas Operativos (E)", cred: 3, prq: "Ninguno" },
+        { cod: "2503247", nom: "Laboratorio de Sistemas Operativos (E)", cred: 1, prq: "Ninguno" },
+        { cod: "2503248", nom: "Sistemas Integrados de Gestión (E)", cred: 2, prq: "Ninguno" }
+      ],
+      7: [
+        { cod: "2504149", nom: "Ética General y Deontología", cred: 2, prq: "Ninguno" },
+        { cod: "2504150", nom: "Fundamentos de la Ciencia de los Datos", cred: 3, prq: "2503239, 2503240" },
+        { cod: "2504151", nom: "Procesamiento Digital de Señales", cred: 3, prq: "2503239, 2503240" },
+        { cod: "2504152", nom: "Lab. Procesamiento Digital de Señales", cred: 1, prq: "2503239, 2503240" },
+        { cod: "2504153", nom: "Internetworking I", cred: 3, prq: "2503239, 2503240" },
+        { cod: "2504154", nom: "Laboratorio de Internetworking I", cred: 1, prq: "2503239, 2503240" },
+        { cod: "2504155", nom: "Líneas de Transmisión", cred: 4, prq: "2503242, 2503243, 2503244" },
+        { cod: "2504156", nom: "Radio Digital (E)", cred: 2, prq: "Ninguno" },
+        { cod: "2504157", nom: "Laboratorio de Radio Digital (E)", cred: 1, prq: "Ninguno" },
+        { cod: "2504158", nom: "Smart Cities (E)", cred: 2, prq: "Ninguno" },
+        { cod: "2504159", nom: "Automatización y Control (E)", cred: 2, prq: "Ninguno" }
+      ],
+      8: [
+        { cod: "2504260", nom: "Machine Learning", cred: 3, prq: "2504151, 2504152" },
+        { cod: "2504261", nom: "Gestión de Proyectos", cred: 3, prq: "2503241" },
+        { cod: "2504262", nom: "Ingeniería de Microondas", cred: 3, prq: "2504155" },
+        { cod: "2504263", nom: "Laboratorio de Ingeniería de Microondas", cred: 1, prq: "2504155" },
+        { cod: "2504264", nom: "Internetworking II", cred: 3, prq: "2504153, 2504154" },
+        { cod: "2504265", nom: "Laboratorio de Internetworking II", cred: 1, prq: "2504153, 2504154" },
+        { cod: "2504266", nom: "Dispositivos de Fibra Óptica", cred: 3, prq: "2504155" },
+        { cod: "2504267", nom: "Lab. Dispositivos de Fibra Óptica", cred: 1, prq: "2504155" },
+        { cod: "2504268", nom: "Diseño de Redes Informáticas (E)", cred: 2, prq: "Ninguno" },
+        { cod: "2504269", nom: "Lab. Diseño de Redes Informáticas (E)", cred: 1, prq: "Ninguno" },
+        { cod: "2504270", nom: "Ingeniería de Sonido y Video Digital (E)", cred: 3, prq: "Ninguno" }
+      ],
+      9: [
+        { cod: "2505171", nom: "Antenas y Compatibilidad Electromagnética", cred: 4, prq: "2504262, 2504263" },
+        { cod: "2505172", nom: "Lab. Antenas y Compatibilidad Electromag.", cred: 1, prq: "2504262, 2504263" },
+        { cod: "2505173", nom: "Ciberseguridad para Telecomunicaciones", cred: 3, prq: "2504264, 2504265" },
+        { cod: "2505174", nom: "Proyecto Final", cred: 4, prq: "2504261" },
+        { cod: "2505175", nom: "Gestión de Redes", cred: 4, prq: "2504261" },
+        { cod: "2505176", nom: "Redes de Comunicaciones Ópticas", cred: 3, prq: "2504266, 2504267" },
+        { cod: "2505177", nom: "Lab. Redes de Comunicaciones Ópticas", cred: 1, prq: "2504266, 2504267" },
+        { cod: "2505178", nom: "IA para Telecomunicaciones (E)", cred: 3, prq: "Ninguno" },
+        { cod: "2505179", nom: "Ingeniería de Radar (E)", cred: 3, prq: "120 Créditos" }
+      ],
+      10: [
+        { cod: "2505280", nom: "Comunicaciones Inalámbricas", cred: 3, prq: "2505171, 2505172" },
+        { cod: "2505281", nom: "Lab. Comunicaciones Inalámbricas", cred: 1, prq: "2505171, 2505172" },
+        { cod: "2505282", nom: "Comunicación Satelital", cred: 3, prq: "2505171, 2505172" },
+        { cod: "2505283", nom: "Laboratorio de Comunicación Satelital", cred: 1, prq: "2505171, 2505172" },
+        { cod: "2505284", nom: "Trabajo de Investigación", cred: 4, prq: "2505174" },
+        { cod: "2505285", nom: "Prácticas Pre-Profesionales", cred: 2, prq: "160 Créditos" },
+        { cod: "2505286", nom: "Legislación y Regulación en Telecom. (E)", cred: 3, prq: "160 Créditos" },
+        { cod: "2505287", nom: "Seminario de Tesis (E)", cred: 3, prq: "160 Créditos" },
+        { cod: "2505288", nom: "Tecnologías Emergentes (E)", cred: 3, prq: "160 Créditos" }
+      ]
+    };
+
+    let mallaActual = "2017";
+    let semestreActual = 1;
+
+    function init() {
+      renderSemestresNav();
+      renderCursos();
+    }
+
+    function renderSemestresNav() {
+      const nav = document.getElementById("semestreNav");
+      nav.innerHTML = "";
+      for (let i = 1; i <= 10; i++) {
+        const btn = document.createElement("button");
+        btn.className = `sem-btn ${i === semestreActual ? 'active' : ''}`;
+        btn.innerText = `${i}° Semestre`;
+        btn.onclick = () => seleccionarSemestre(i);
+        nav.appendChild(btn);
+      }
+    }
+
+    function seleccionarSemestre(sem) {
+      semestreActual = sem;
+      renderSemestresNav();
+      renderCursos();
+    }
+
+    function cambiarMalla(malla) {
+      mallaActual = malla;
+      document.querySelectorAll('.malla-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderCursos();
+    }
+
+    function renderCursos() {
+      const grid = document.getElementById("cursosGrid");
+      const titulo = document.getElementById("tituloSemestre");
+      titulo.innerText = `${semestreActual}° Semestre - Malla ${mallaActual}`;
+      grid.innerHTML = "";
+
+      let cursos = [];
+      if (mallaActual === "2017") {
+        cursos = malla2017[semestreActual] || [];
+      } else {
+        grid.innerHTML = "<p>Próximamente disponible el mapa de la Malla 2025.</p>";
+        return;
+      }
+
+      cursos.forEach(c => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-header">
+            <span class="card-code">${c.cod}</span>
+            <div class="card-title">${c.nom}</div>
+            <div class="card-info">
+              <span><strong>Créditos:</strong> ${c.cred}</span>
+              <span><strong>Prerrequisito:</strong> ${c.prq}</span>
+            </div>
+          </div>
+          <div class="btn-group">
+            <a href="#" class="btn-drive" target="_blank">Drive Material</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    init();
+  </script>
 </body>
 </html>
