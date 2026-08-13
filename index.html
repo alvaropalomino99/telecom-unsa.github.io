@@ -6,421 +6,83 @@
 <title>Telecom UNSA — Repositorio Estudiantil</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #0E1A2B;
-    --bg-soft: #101f33;
-    --surface: #16263D;
-    --surface-2: #1C3049;
-    --surface-3: #223a59;
-    --border: rgba(255,255,255,0.08);
-    --border-strong: rgba(255,255,255,0.16);
-    --text: #EDEFF2;
-    --text-dim: #9BAAC0;
-    --text-faint: #6C7C93;
-    --teal: #2FD3C6;
-    --teal-dim: rgba(47,211,198,0.14);
-    --amber: #F2A541;
-    --amber-dim: rgba(242,165,65,0.14);
-    --maroon: #C24463;
-    --maroon-dim: rgba(194,68,99,0.16);
-    --radius-s: 8px;
-    --radius-m: 12px;
-    --radius-l: 18px;
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
-    --shadow: 0 10px 30px -12px rgba(0,0,0,0.5);
-  }
-
-  *{ box-sizing: border-box; }
-  html{ scroll-behavior: smooth; }
-  body{
-    margin:0;
-    background: var(--bg);
-    background-image:
-      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(47,211,198,0.10), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(194,68,99,0.10), transparent 55%);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  a{ color: inherit; }
-  button{ font-family: inherit; }
-
-  ::selection{ background: var(--teal); color: #06231f; }
-
-  :focus-visible{
-    outline: 2px solid var(--teal);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-
-  .wrap{ max-width: 1320px; margin: 0 auto; padding: 0 24px; }
-
-  /* ---------- Spectrum signature ---------- */
-  .spectrum{
-    display:flex; align-items:flex-end; gap:3px; height: 22px;
-    opacity: 0.55;
-  }
-  .spectrum span{
-    width: 3px; border-radius: 2px;
-    background: linear-gradient(180deg, var(--teal), var(--maroon));
-    animation: bar 2.4s ease-in-out infinite;
-  }
-  @keyframes bar{
-    0%,100%{ height: 20%; }
-    50%{ height: 100%; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .spectrum span{ animation: none; height: 60%; }
-  }
-
-  .hairline{
-    height:1px;
-    background: linear-gradient(90deg, transparent, var(--border-strong) 20%, var(--border-strong) 80%, transparent);
-    border:0; margin:0;
-  }
-
-  /* ---------- Top bar ---------- */
-  .topbar{
-    position: sticky; top:0; z-index: 40;
-    background: rgba(14,26,43,0.86);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-  }
-  .topbar-inner{
-    display:flex; align-items:center; gap:20px;
-    padding: 14px 0;
-  }
-  .brand{
-    display:flex; align-items:center; gap:12px;
-    text-decoration:none;
-    margin-right: auto;
-  }
-  .brand-mark{
-    width:38px; height:38px; border-radius: 10px;
-    background: linear-gradient(140deg, var(--teal), #1a8f85);
-    display:flex; align-items:center; justify-content:center;
-    font-family: var(--font-display); font-weight:700; color:#06231f;
-    font-size: 15px;
-    flex-shrink:0;
-  }
-  .brand-text{ display:flex; flex-direction:column; line-height:1.15; }
-  .brand-text strong{ font-family: var(--font-display); font-size: 16.5px; letter-spacing: 0.2px; }
-  .brand-text span{ font-size: 11.5px; color: var(--text-dim); font-family: var(--font-mono); letter-spacing: 0.4px; }
-
-  .topbar-actions{ display:flex; align-items:center; gap:10px; }
-
-  .select-plan{
-    appearance:none;
-    background: var(--surface-2);
-    border: 1px solid var(--border-strong);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 13px;
-    padding: 9px 34px 9px 14px;
-    border-radius: var(--radius-s);
-    cursor:pointer;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239BAAC0'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;
-    background-position: right 13px center;
-  }
-  .select-plan:hover{ border-color: var(--teal); }
-
-  .search-box{
-    position:relative;
-    display:flex; align-items:center;
-  }
-  .search-box input{
-    width: 230px;
-    background: var(--surface-2);
-    border: 1px solid var(--border-strong);
-    color: var(--text);
-    padding: 9px 12px 9px 34px;
-    border-radius: var(--radius-s);
-    font-size: 13.5px;
-  }
-  .search-box input::placeholder{ color: var(--text-faint); }
-  .search-box input:focus{ border-color: var(--teal); }
-  .search-box svg{ position:absolute; left:11px; width:15px; height:15px; color: var(--text-faint); pointer-events:none; }
-
-  .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    padding: 9px 16px;
-    border-radius: var(--radius-s);
-    font-size: 13.5px; font-weight:600;
-    border:1px solid transparent;
-    cursor:pointer;
-    text-decoration:none;
-    white-space:nowrap;
-  }
-  .btn-primary{ background: var(--teal); color:#06231f; }
-  .btn-primary:hover{ background:#48ddd1; }
-  .btn-ghost{ background: transparent; border-color: var(--border-strong); color: var(--text); }
-  .btn-ghost:hover{ border-color: var(--teal); color: var(--teal); }
-
-  /* ---------- Hero ---------- */
-  .hero{ padding: 46px 0 30px; position:relative; overflow:hidden; }
-  .hero-top{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; }
-  .eyebrow{
-    font-family: var(--font-mono); font-size: 12px; letter-spacing: 1.5px;
-    color: var(--teal); text-transform:uppercase; margin: 0 0 10px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .eyebrow::before{ content:""; width:16px; height:1px; background: var(--teal); display:inline-block; }
-  h1.headline{
-    font-family: var(--font-display); font-weight:700;
-    font-size: clamp(28px, 4vw, 42px);
-    margin: 0 0 10px; letter-spacing: -0.5px;
-  }
-  .hero p.sub{ color: var(--text-dim); max-width: 560px; font-size: 15px; margin:0; }
-
-  .stat-row{ display:flex; gap: 28px; flex-wrap:wrap; }
-  .stat{ text-align:right; }
-  .stat b{ display:block; font-family: var(--font-display); font-size: 24px; }
-  .stat span{ font-size: 11.5px; color: var(--text-faint); font-family: var(--font-mono); text-transform:uppercase; letter-spacing:0.6px; }
-
-  .hero .spectrum{ margin-top: 28px; }
-
-  /* ---------- View toggle + semester nav ---------- */
-  .controls-row{
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    flex-wrap:wrap;
-    padding: 18px 0 6px;
-  }
-  .view-toggle{
-    display:flex; background: var(--surface); border:1px solid var(--border); border-radius: 999px; padding:3px;
-  }
-  .view-toggle button{
-    border:0; background:transparent; color: var(--text-dim);
-    padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight:600; cursor:pointer;
-  }
-  .view-toggle button.active{ background: var(--teal); color:#06231f; }
-
-  .sem-nav{
-    display:flex; gap:8px; overflow-x:auto; padding: 14px 0 18px;
-    scrollbar-width: thin;
-  }
-  .sem-nav::-webkit-scrollbar{ height:6px; }
-  .sem-nav::-webkit-scrollbar-thumb{ background: var(--surface-3); border-radius:6px; }
-
-  .sem-pill{
-    flex-shrink:0;
-    display:flex; flex-direction:column; align-items:flex-start; gap:2px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-m);
-    padding: 8px 16px;
-    cursor:pointer;
-    min-width: 108px;
-    transition: border-color .15s, background .15s;
-  }
-  .sem-pill:hover{ border-color: var(--border-strong); }
-  .sem-pill .ch{
-    font-family: var(--font-mono); font-size:10.5px; color: var(--text-faint); letter-spacing: 0.5px;
-  }
-  .sem-pill .lb{ font-family: var(--font-display); font-size: 14px; font-weight:600; }
-  .sem-pill.active{
-    background: var(--teal-dim); border-color: var(--teal);
-  }
-  .sem-pill.active .ch{ color: var(--teal); }
-
-  /* ---------- Layout ---------- */
-  .layout{ display:grid; grid-template-columns: 1fr 320px; gap: 26px; padding-bottom: 60px; align-items:start; }
-  @media (max-width: 980px){ .layout{ grid-template-columns: 1fr; } }
-
-  .section-title{
-    display:flex; align-items:baseline; justify-content:space-between; margin: 6px 0 16px;
-  }
-  .section-title h2{
-    font-family: var(--font-display); font-size: 19px; margin:0; font-weight:600;
-  }
-  .section-title .meta{ font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); }
-
-  /* ---------- Course cards ---------- */
-  .course-grid{
-    display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;
-  }
-  .course-card{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--teal);
-    border-radius: var(--radius-m);
-    padding: 16px;
-    display:flex; flex-direction:column; gap: 10px;
-    transition: transform .12s, border-color .12s;
-  }
-  .course-card:hover{ border-color: var(--border-strong); transform: translateY(-2px); }
-  .course-card.elective{ border-left-color: var(--amber); }
-
-  .course-top{ display:flex; justify-content:space-between; gap: 10px; }
-  .course-name{ font-family: var(--font-display); font-size: 14.5px; font-weight:600; line-height:1.3; }
-  .course-cred{
-    flex-shrink:0; font-family: var(--font-mono); font-size:12px; color: var(--teal);
-    background: var(--teal-dim); border-radius: 999px; padding: 3px 9px; height: fit-content;
-  }
-  .course-card.elective .course-cred{ color: var(--amber); background: var(--amber-dim); }
-
-  .course-code{ font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); letter-spacing:0.3px; }
-
-  .badge-row{ display:flex; gap:6px; flex-wrap:wrap; }
-  .badge{
-    font-size: 10.5px; font-family: var(--font-mono); text-transform:uppercase; letter-spacing:0.4px;
-    padding: 3px 8px; border-radius: 5px; border:1px solid var(--border-strong); color: var(--text-dim);
-  }
-  .badge.elective{ color: var(--amber); border-color: rgba(242,165,65,0.35); }
-
-  .prq-row{ display:flex; flex-wrap:wrap; gap:6px; margin-top:2px; }
-  .prq-chip{
-    font-size: 11px; color: var(--text-dim);
-    background: var(--surface-2); border-radius: 6px; padding: 3px 8px;
-    cursor: default;
-  }
-  .prq-none{ font-size: 11px; color: var(--text-faint); font-style: italic; }
-
-  .materials{
-    display:grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
-    margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--border);
-  }
-  .mat-btn{
-    display:flex; flex-direction:column; align-items:center; gap:4px;
-    background: var(--surface-2); border: 1px solid transparent; border-radius: var(--radius-s);
-    padding: 8px 4px; cursor:pointer; color: var(--text-dim);
-  }
-  .mat-btn:hover{ border-color: var(--teal); color: var(--teal); }
-  .mat-btn svg{ width:15px; height:15px; }
-  .mat-btn .n{ font-family: var(--font-mono); font-size: 10.5px; }
-  .mat-btn .l{ font-size: 9.5px; text-transform:uppercase; letter-spacing:0.3px; color: var(--text-faint); }
-
-  /* ---------- Sidebar ---------- */
-  .side-card{
-    background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-m);
-    padding: 18px; margin-bottom: 16px;
-  }
-  .side-card h3{
-    font-family: var(--font-display); font-size: 14.5px; margin: 0 0 4px; display:flex; align-items:center; gap:8px;
-  }
-  .side-card p{ font-size: 12.5px; color: var(--text-dim); margin: 4px 0 14px; line-height:1.5; }
-
-  .upload-card{ background: linear-gradient(150deg, var(--maroon-dim), var(--surface) 60%); border-color: rgba(194,68,99,0.35); }
-  .upload-card h3{ color: var(--maroon); }
-  .upload-card .btn-primary{ background: var(--maroon); color:#fff; width:100%; justify-content:center; }
-  .upload-card .btn-primary:hover{ background:#d75579; }
-
-  .link-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:4px; }
-  .link-list li a{
-    display:flex; align-items:center; justify-content:space-between;
-    text-decoration:none; font-size: 13px; padding: 9px 10px; border-radius: var(--radius-s);
-    color: var(--text);
-  }
-  .link-list li a:hover{ background: var(--surface-2); color: var(--teal); }
-  .link-list li a svg{ width:13px; height:13px; color: var(--text-faint); }
-
-  .empty-state{
-    border: 1px dashed var(--border-strong); border-radius: var(--radius-s);
-    padding: 18px 14px; text-align:center;
-  }
-  .empty-state svg{ width:22px; height:22px; color: var(--text-faint); margin-bottom:8px; }
-  .empty-state p{ margin:0; font-size: 12px; color: var(--text-faint); line-height:1.5; }
-
-  .plan-summary{ display:flex; flex-direction:column; gap: 10px; }
-  .plan-summary .row{ display:flex; justify-content:space-between; align-items:center; font-size: 12.5px; color: var(--text-dim); }
-  .plan-summary .row b{ color: var(--text); font-family: var(--font-mono); font-weight:500; }
-
-  /* ---------- Malla view (full grid) ---------- */
-  .malla{
-    display:grid; grid-auto-flow:column; grid-auto-columns: minmax(255px, 1fr);
-    gap: 14px; overflow-x:auto; padding-bottom: 12px;
-  }
-  .malla::-webkit-scrollbar{ height:8px; }
-  .malla::-webkit-scrollbar-thumb{ background: var(--surface-3); border-radius:8px; }
-  .anio-col{ display:flex; flex-direction:column; gap:12px; }
-  .anio-titulo{
-    font-family: var(--font-display); font-weight:600; font-size: 14px; text-align:center;
-    background: var(--surface-2); border:1px solid var(--border-strong); border-radius: var(--radius-s);
-    padding: 9px; margin:0;
-  }
-  .sem-block{ display:flex; flex-direction:column; gap:8px; }
-  .sem-block-title{
-    font-family: var(--font-mono); font-size: 11px; text-align:center; color: var(--text-faint);
-    text-transform:uppercase; letter-spacing:0.5px; margin: 2px 0;
-  }
-  .mini-card{
-    background: var(--surface); border:1px solid var(--border); border-left: 3px solid var(--teal);
-    border-radius: 7px; padding: 8px 10px; font-size: 11.5px;
-  }
-  .mini-card.elective{ border-left-color: var(--amber); }
-  .mini-top{ display:flex; justify-content:space-between; gap:6px; font-weight:600; }
-  .mini-cred{ font-family: var(--font-mono); color: var(--text-faint); font-weight:400; flex-shrink:0; }
-  .mini-info{ color: var(--text-faint); font-size: 10.5px; margin-top:4px; font-family: var(--font-mono); }
-
-  /* ---------- Search results ---------- */
-  .search-results-note{
-    font-size: 12.5px; color: var(--text-dim); margin-bottom: 14px;
-  }
-  .search-results-note b{ color: var(--teal); }
-
-  footer{
-    border-top: 1px solid var(--border); padding: 26px 0; margin-top: 20px;
-  }
-  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
-  .footer-row p{ margin:0; font-size:12px; color: var(--text-faint); font-family: var(--font-mono); }
-  .footer-row a{ font-size:12px; color: var(--text-dim); text-decoration:none; }
-  .footer-row a:hover{ color: var(--teal); }
-
-  @media (max-width: 640px){
-    .topbar-inner{ flex-wrap:wrap; }
-    .search-box input{ width: 150px; }
-    .stat-row{ justify-content:flex-start; }
-    .stat{ text-align:left; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="topbar">
   <div class="wrap topbar-inner">
     <a class="brand" href="#top">
-      <div class="brand-mark">TX</div>
-      <div class="brand-text">
-        <strong>Telecom UNSA</strong>
-        <span>REPOSITORIO ESTUDIANTIL</span>
-      </div>
+      <span class="brand-mark"><span></span></span>
+      <span class="brand-word">Telecom UNSA</span>
     </a>
+    <ul class="nav-links">
+      <li><a id="navCursos">Cursos</a></li>
+      <li><a id="navMalla">Malla</a></li>
+      <li><a href="#material">Material</a></li>
+      <li><a href="#comunidad">Comunidad</a></li>
+    </ul>
     <div class="topbar-actions">
       <div class="search-box">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input id="searchInput" type="text" placeholder="Buscar curso o código…">
       </div>
       <select id="selectPlan" class="select-plan"></select>
+      <button class="btn btn-gold btn-sm" onclick="alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).')">Subir material</button>
     </div>
   </div>
 </div>
 
 <div class="wrap">
   <section class="hero" id="top">
-    <div class="hero-top">
-      <div>
-        <p class="eyebrow">Ingeniería en Telecomunicaciones</p>
-        <h1 class="headline">La malla, los sílabos<br>y el material, en un solo lugar.</h1>
-        <p class="sub">Explora el plan de estudios semestre a semestre, revisa prerrequisitos al instante y encuentra —o sube— el material que la comunidad va compartiendo.</p>
+    <div>
+      <div class="eyebrow-pill"><span class="dot"></span> Ingeniería en Telecomunicaciones</div>
+      <h1 class="headline">Tu malla,<em>tus sílabos.</em></h1>
+      <p class="hero-sub">Explora el plan de estudios semestre a semestre, revisa prerrequisitos al instante y encuentra —o sube— el material que la comunidad va compartiendo.</p>
+      <div class="hero-actions">
+        <button class="btn btn-gold" id="btnExplorar">Explorar cursos</button>
+        <button class="btn btn-outline" id="btnVerMalla">Ver malla completa</button>
       </div>
-      <div class="stat-row">
+      <div class="hero-stats">
         <div class="stat"><b id="statCursos">–</b><span>Cursos</span></div>
         <div class="stat"><b id="statCreditos">–</b><span>Créditos</span></div>
         <div class="stat"><b id="statElectivos">–</b><span>Electivos</span></div>
       </div>
     </div>
-    <div class="spectrum" aria-hidden="true">
-      <span style="animation-delay:0s"></span><span style="animation-delay:.1s"></span><span style="animation-delay:.2s"></span>
-      <span style="animation-delay:.3s"></span><span style="animation-delay:.15s"></span><span style="animation-delay:.05s"></span>
-      <span style="animation-delay:.25s"></span><span style="animation-delay:.35s"></span><span style="animation-delay:.2s"></span>
-      <span style="animation-delay:.1s"></span><span style="animation-delay:0s"></span><span style="animation-delay:.3s"></span>
-      <span style="animation-delay:.2s"></span><span style="animation-delay:.4s"></span><span style="animation-delay:.1s"></span>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg">
+        <!-- Peldaño 1 -->
+        <polygon points="150,330 190,330 190,420 150,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
+        <polygon points="40,350 150,350 190,330 80,330" fill="#1E1E1E" stroke="rgba(255,255,255,0.08)"/>
+        <rect x="40" y="350" width="110" height="90" fill="#141414" stroke="rgba(255,255,255,0.08)"/>
+
+        <!-- Peldaño 2 -->
+        <polygon points="280,270 320,270 320,420 280,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
+        <polygon points="170,290 280,290 320,270 210,270" fill="#1E1E1E" stroke="rgba(255,255,255,0.08)"/>
+        <rect x="170" y="290" width="110" height="150" fill="#141414" stroke="rgba(255,255,255,0.08)"/>
+
+        <!-- Peldaño 3 (más alto) -->
+        <polygon points="410,190 450,190 450,420 410,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
+        <polygon points="300,210 410,210 450,190 340,190" fill="#232323" stroke="rgba(232,185,35,0.35)"/>
+        <rect x="300" y="210" width="110" height="230" fill="#161616" stroke="rgba(255,255,255,0.08)"/>
+        <line x1="300" y1="210" x2="410" y2="210" stroke="#E8B923" stroke-width="2"/>
+
+        <!-- Medallón -->
+        <g class="spin-ring">
+          <circle cx="420" cy="140" r="80" fill="none" stroke="#E8B923" stroke-width="1.4" stroke-dasharray="3 6" opacity="0.8"/>
+        </g>
+        <circle cx="420" cy="140" r="62" fill="#141414" stroke="rgba(232,185,35,0.5)" stroke-width="1.5"/>
+        <circle cx="420" cy="140" r="62" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
+        <!-- icono de señal / antena -->
+        <g stroke="#E8B923" stroke-width="2.4" fill="none" stroke-linecap="round">
+          <path d="M420 160v-38"/>
+          <circle cx="420" cy="118" r="3" fill="#E8B923" stroke="none"/>
+          <path d="M405 130a22 22 0 0130 0" opacity="0.85"/>
+          <path d="M394 141a38 38 0 0152 0" opacity="0.55"/>
+        </g>
+      </svg>
     </div>
   </section>
 
@@ -435,16 +97,16 @@
 
   <div id="semNavWrap" class="sem-nav" role="tablist"></div>
 
-  <div class="layout">
+  <div class="layout" id="material">
     <main>
       <div id="mainContent"></div>
     </main>
 
-    <aside>
+    <aside id="comunidad">
       <div class="side-card upload-card">
         <h3>Sube tu material</h3>
         <p>Comparte sílabos, prácticas o exámenes resueltos con tus compañeros de carrera.</p>
-        <button class="btn btn-primary" onclick="alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).')">Formulario colaborativo</button>
+        <button class="btn btn-gold btn-block" onclick="alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).')">Formulario colaborativo</button>
       </div>
 
       <div class="side-card">
@@ -488,541 +150,20 @@
   </footer>
 </div>
 
+<script src="data.js"></script>
+<script src="app.js"></script>
 <script>
-/* =======================================================
-   DATOS — NO MODIFICADOS
-======================================================= */
-const planesEstudio = {
-    "2017": {
-        nombre: "Plan de Estudios 2017",
-        anios: [
-            {
-                numero: "Primer Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "1701102", nombre: "Razonamiento Lógico Matemático", cred: 2, prq: [] },
-                        { codigo: "1701105", nombre: "Matemática Básica", cred: 2, prq: [] },
-                        { codigo: "1701106", nombre: "Cálculo Diferencial para Telecomunicaciones", cred: 4, prq: [] },
-                        { codigo: "1701107", nombre: "Física 1", cred: 3, prq: [] },
-                        { codigo: "1701114", nombre: "Metodología del Trabajo Intelectual Universitario", cred: 2, prq: [] },
-                        { codigo: "1701115", nombre: "Materiales de Ingeniería", cred: 3, prq: [] },
-                        { codigo: "1701116", nombre: "Introducción a la Ingeniería", cred: 2, prq: [] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "1701210", nombre: "Computación 1", cred: 3, prq: ["1701102"] },
-                        { codigo: "1701211", nombre: "Cálculo Integral para Telecomunicaciones", cred: 4, prq: ["1701106"] },
-                        { codigo: "1701212", nombre: "Física 2", cred: 3, prq: ["1701107"] },
-                        { codigo: "1701213", nombre: "Ingeniería Gráfica y CAD", cred: 3, prq: ["1701116"] },
-                        { codigo: "1701217", nombre: "Realidad Nacional", cred: 1, prq: [] },
-                        { codigo: "1701218", nombre: "Comunicación Integral", cred: 2, prq: [] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Segundo Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "1702119", nombre: "Ciudadanía e Interculturalidad", cred: 1, prq: [] },
-                        { codigo: "1702120", nombre: "Computación 2", cred: 4, prq: ["1701210"] },
-                        { codigo: "1702121", nombre: "Análisis de Sistemas y Señales", cred: 3, prq: ["1701211"] },
-                        { codigo: "1702122", nombre: "Métodos Matemáticos 1", cred: 3, prq: ["1701211"] },
-                        { codigo: "1702123", nombre: "Física 3", cred: 3, prq: ["1701212"] },
-                        { codigo: "1702124", nombre: "Electrotecnia 1", cred: 4, prq: ["1701212"] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "1702225", nombre: "Ecología y Conservación Ambiental", cred: 1, prq: [] },
-                        { codigo: "1702226", nombre: "Tecnologías e Infraestructura", cred: 4, prq: ["1702120"] },
-                        { codigo: "1702227", nombre: "Métodos Numéricos", cred: 4, prq: ["1702121"] },
-                        { codigo: "1702228", nombre: "Métodos Matemáticos 2", cred: 4, prq: ["1702122"] },
-                        { codigo: "1702229", nombre: "Dispositivos y Circuitos Electrónicos", cred: 5, prq: ["1702123", "1702124"] },
-                        { codigo: "1702230", nombre: "Electrotecnia 2", cred: 5, prq: ["1702124"] },
-                        { codigo: "1702231", nombre: "Gerencia Estratégica (E)", cred: 3, prq: [] },
-                        { codigo: "1702232", nombre: "Marketing en Telecomunicaciones (E)", cred: 3, prq: [] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Tercer Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "1703133", nombre: "Liderazgo y Comportamiento Organizacional", cred: 1, prq: ["1702225"] },
-                        { codigo: "1703134", nombre: "Problemas Actuales de la Sociedad", cred: 1, prq: [] },
-                        { codigo: "1703135", nombre: "Telecomunicaciones 1", cred: 3, prq: ["1702227"] },
-                        { codigo: "1703137", nombre: "Sistemas Digitales", cred: 3, prq: ["1702229"] },
-                        { codigo: "1703138", nombre: "Inglés Básico", cred: 1, prq: [] },
-                        { codigo: "1703139", nombre: "Sistemas de Control (E)", cred: 3, prq: ["1702229"] },
-                        { codigo: "1703140", nombre: "Electrónica Industrial (E)", cred: 3, prq: ["1702229", "1702230"] },
-                        { codigo: "1703178", nombre: "Procesamiento Digital de Señales", cred: 3, prq: ["1702228"] },
-                        { codigo: "1703179", nombre: "Laboratorio de Procesamiento Digital de Señales", cred: 1, prq: ["1702228"] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "1703241", nombre: "Perspectiva y Enfoque de la Investigación Científica", cred: 2, prq: ["1702225"] },
-                        { codigo: "1703243", nombre: "Telecomunicaciones 2", cred: 3, prq: ["1703135"] },
-                        { codigo: "1703246", nombre: "Dinámica de Sistemas (E)", cred: 3, prq: ["1702229"] },
-                        { codigo: "1703247", nombre: "Smart Cities (E)", cred: 3, prq: ["1702123", "1703135"] },
-                        { codigo: "1703275", nombre: "Campos Electromagnéticos", cred: 4, prq: ["1703178", "1703179"] },
-                        { codigo: "1703280", nombre: "Instrumentación 1", cred: 2, prq: ["1702226"] },
-                        { codigo: "1703281", nombre: "Laboratorio de Instrumentación 1", cred: 1, prq: ["1702226"] },
-                        { codigo: "1703282", nombre: "Sistemas de Telefonía", cred: 3, prq: ["1702227"] },
-                        { codigo: "1703283", nombre: "Laboratorio de Sistemas de Telefonía", cred: 1, prq: ["1702227"] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Cuarto Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "1704148", nombre: "Ética General y Profesional", cred: 1, prq: [] },
-                        { codigo: "1704152", nombre: "Ingeniería de Mantenimiento (E)", cred: 3, prq: ["1702124", "1702230"] },
-                        { codigo: "1704153", nombre: "Comunicación Industrial (E)", cred: 3, prq: ["1703139"] },
-                        { codigo: "1704184", nombre: "Microprocesador y Microcontrolador", cred: 3, prq: ["1703137"] },
-                        { codigo: "1704185", nombre: "Laboratorio de Microprocesador y Microcontrolador", cred: 1, prq: ["1703137"] },
-                        { codigo: "1704186", nombre: "Líneas de Transmisión", cred: 4, prq: ["1703275"] },
-                        { codigo: "1704187", nombre: "Laboratorio de Líneas de Transmisión", cred: 1, prq: ["1703275"] },
-                        { codigo: "1704188", nombre: "Internetworking 1", cred: 3, prq: ["1703282", "1703283"] },
-                        { codigo: "1704189", nombre: "Laboratorio de Internetworking 1", cred: 1, prq: ["1703282", "1703283"] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "1704259", nombre: "Control Adaptativo Moderno (E)", cred: 3, prq: ["1703139"] },
-                        { codigo: "1704290", nombre: "Software de Telecomunicaciones", cred: 3, prq: ["1704184", "1704185"] },
-                        { codigo: "1704291", nombre: "Laboratorio de Software de Telecomunicaciones", cred: 1, prq: ["1704184", "1704185"] },
-                        { codigo: "1704292", nombre: "Antenas", cred: 4, prq: ["1704186", "1704187"] },
-                        { codigo: "1704293", nombre: "Laboratorio de Antenas", cred: 1, prq: ["1704186", "1704187"] },
-                        { codigo: "1704294", nombre: "Microelectrónica en Radiofrecuencia", cred: 3, prq: ["1704184", "1704185"] },
-                        { codigo: "1704295", nombre: "Laboratorio de Microelectrónica en Radiofrecuencia", cred: 1, prq: ["1704184", "1704185"] },
-                        { codigo: "1704296", nombre: "Internetworking 2", cred: 3, prq: ["1704188", "1704189"] },
-                        { codigo: "1704297", nombre: "Laboratorio de Internetworking 2", cred: 1, prq: ["1704188", "1704189"] },
-                        { codigo: "1704298", nombre: "Análisis de Circuitos en Alta Frecuencia (E)", cred: 2, prq: ["1702229"] },
-                        { codigo: "1704299", nombre: "Laboratorio de Análisis de Circuitos en Alta Frecuencia (E)", cred: 1, prq: ["1702229"] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Quinto Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "1705165", nombre: "Dimensionamiento de Sistemas de Energía (E)", cred: 3, prq: ["1704152"] },
-                        { codigo: "1705166", nombre: "Proyecto Final 1", cred: 4, prq: ["1703241"] },
-                        { codigo: "1705167", nombre: "Legislación y Regulación en Telecomunicaciones (E)", cred: 3, prq: [] },
-                        { codigo: "1705168", nombre: "Instrumentación 2", cred: 2, prq: ["1704290", "1704291", "1703280", "1703281"] },
-                        { codigo: "1705169", nombre: "Laboratorio de Instrumentación 2", cred: 1, prq: ["1704290", "1704291", "1703280", "1703281"] },
-                        { codigo: "1705170", nombre: "Sistemas de Radio Digital y Microondas", cred: 3, prq: ["1704292", "1704293"] },
-                        { codigo: "1705171", nombre: "Laboratorio de Sistemas de Radio Digital y Microondas", cred: 1, prq: ["1704292", "1704293"] },
-                        { codigo: "1705172", nombre: "Dispositivos de Fibra Óptica", cred: 3, prq: ["1704186", "1704187", "1704296", "1704297"] },
-                        { codigo: "1705173", nombre: "Laboratorio de Dispositivos de Fibra Óptica", cred: 1, prq: ["1704186", "1704187", "1704296", "1704297"] },
-                        { codigo: "1705174", nombre: "Ingeniería de Sonido y Video Digital (E)", cred: 2, prq: ["1704294", "1704295"] },
-                        { codigo: "1705175", nombre: "Laboratorio de Ingeniería de Sonido y Video Digital (E)", cred: 1, prq: ["1704294", "1704295"] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "1705273", nombre: "Sistemas de Telecomunicaciones Emergentes (E)", cred: 3, prq: ["1705170", "1705171", "1705172", "1705173"] },
-                        { codigo: "1705274", nombre: "Broadcasting para Radio y Televisión Digital (E)", cred: 3, prq: ["1705174", "1705175"] },
-                        { codigo: "1705276", nombre: "Economía y Política", cred: 2, prq: ["1701217"] },
-                        { codigo: "1705277", nombre: "Prácticas Pre Profesionales", cred: 2, prq: [] },
-                        { codigo: "1705278", nombre: "Trabajo de Investigación", cred: 3, prq: ["1703241", "1705166"] },
-                        { codigo: "1705279", nombre: "Telefonía Celular", cred: 3, prq: ["1705170", "1705171"] },
-                        { codigo: "1705280", nombre: "Laboratorio de Telefonía Celular", cred: 1, prq: ["1705170", "1705171", "1705172", "1705173"] },
-                        { codigo: "1705281", nombre: "Comunicación Satelital", cred: 3, prq: ["1705170", "1705171"] },
-                        { codigo: "1705282", nombre: "Laboratorio de Comunicación Satelital", cred: 1, prq: ["1705170", "1705171"] },
-                        { codigo: "1705283", nombre: "Redes Inalámbricas", cred: 3, prq: ["1705170", "1705171"] },
-                        { codigo: "1705284", nombre: "Laboratorio de Redes Inalámbricas", cred: 1, prq: ["1705170", "1705171"] },
-                        { codigo: "1705285", nombre: "Redes de Comunicaciones Ópticas", cred: 3, prq: ["1705172", "1705173"] },
-                        { codigo: "1705286", nombre: "Laboratorio de Redes de Comunicaciones Ópticas", cred: 1, prq: ["1705172", "1705173"] }
-                    ]}
-                ]
-            }
-        ]
-    },
-    "2025": {
-        nombre: "Plan de Estudios 2025",
-        anios: [
-            {
-                numero: "Primer Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "2501101", nombre: "Metodología del Trabajo Académico", cred: 4, prq: [] },
-                        { codigo: "2501102", nombre: "Matemática Básica", cred: 4, prq: [] },
-                        { codigo: "2501103", nombre: "Introducción a la Ingeniería", cred: 3, prq: [] },
-                        { codigo: "2501104", nombre: "Cálculo en una Variable", cred: 5, prq: [] },
-                        { codigo: "2501105", nombre: "Física I", cred: 4, prq: [] },
-                        { codigo: "2501106", nombre: "Laboratorio de Física I", cred: 1, prq: [] },
-                        { codigo: "2501107", nombre: "Diseño Gráfico para Telecomunicaciones", cred: 2, prq: [] },
-                        { codigo: "2501108", nombre: "Laboratorio de Diseño Gráfico para Telecomunicaciones", cred: 1, prq: [] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "2501209", nombre: "Lingüística, Comprensión y Redacción Académica", cred: 3, prq: [] },
-                        { codigo: "2501210", nombre: "Álgebra Lineal", cred: 4, prq: [] },
-                        { codigo: "2501211", nombre: "Realidad Nacional", cred: 2, prq: [] },
-                        { codigo: "2501212", nombre: "Cálculo en Varias Variables", cred: 5, prq: ["2501104"] },
-                        { codigo: "2501213", nombre: "Física II", cred: 4, prq: ["2501105", "2501106"] },
-                        { codigo: "2501214", nombre: "Laboratorio de Física II", cred: 1, prq: ["2501105", "2501106"] },
-                        { codigo: "2501215", nombre: "Programación I", cred: 3, prq: [] },
-                        { codigo: "2501216", nombre: "Laboratorio de Programación I", cred: 1, prq: [] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Segundo Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "2502117", nombre: "Ecuaciones Diferenciales", cred: 5, prq: ["2501210", "2501212"] },
-                        { codigo: "2502118", nombre: "Electrotecnia I", cred: 4, prq: ["2501213", "2501214"] },
-                        { codigo: "2502119", nombre: "Laboratorio de Electrotecnia I", cred: 1, prq: ["2501213", "2501214"] },
-                        { codigo: "2502120", nombre: "Física III", cred: 4, prq: ["2501213", "2501214"] },
-                        { codigo: "2502121", nombre: "Laboratorio de Física III", cred: 1, prq: ["2501213", "2501214"] },
-                        { codigo: "2502122", nombre: "Ciudadanía e Interculturalidad", cred: 2, prq: [] },
-                        { codigo: "2502123", nombre: "Programación II", cred: 3, prq: ["2501215", "2501216"] },
-                        { codigo: "2502124", nombre: "Laboratorio de Programación II", cred: 1, prq: ["2501215", "2501216"] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "2502225", nombre: "Ecología y Conservación Ambiental", cred: 2, prq: [] },
-                        { codigo: "2502226", nombre: "Electrotecnia II", cred: 4, prq: ["2502118", "2502119"] },
-                        { codigo: "2502227", nombre: "Laboratorio de Electrotecnia II", cred: 1, prq: ["2502118", "2502119"] },
-                        { codigo: "2502228", nombre: "Métodos Numéricos", cred: 4, prq: ["2502123", "2502124"] },
-                        { codigo: "2502229", nombre: "Señales y Sistemas", cred: 4, prq: ["2501212", "2502117"] },
-                        { codigo: "2502230", nombre: "Teoría de Campos Electromagnéticos", cred: 5, prq: ["2502120", "2502121"] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Tercer Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "2503131", nombre: "Inglés", cred: 2, prq: [] },
-                        { codigo: "2503132", nombre: "Estadística y Probabilidad para Telecomunicaciones", cred: 3, prq: [] },
-                        { codigo: "2503133", nombre: "Desarrollo Emocional, Gestión de Conflictos y Liderazgo", cred: 2, prq: [] },
-                        { codigo: "2503134", nombre: "Dispositivos Electrónicos", cred: 3, prq: ["2502226", "2502227"] },
-                        { codigo: "2503135", nombre: "Sistemas Digitales", cred: 3, prq: ["2502228"] },
-                        { codigo: "2503136", nombre: "Laboratorio de Sistemas Digitales", cred: 1, prq: ["2502228"] },
-                        { codigo: "2503137", nombre: "Telecomunicaciones I", cred: 4, prq: ["2502229", "2502230"] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "2503238", nombre: "Políticas Públicas y Anticorrupción", cred: 2, prq: [] },
-                        { codigo: "2503239", nombre: "Microprocesador y Microcontrolador", cred: 3, prq: ["2503135", "2503136"] },
-                        { codigo: "2503240", nombre: "Laboratorio de Microprocesador y Microcontrolador", cred: 1, prq: ["2503135", "2503136"] },
-                        { codigo: "2503241", nombre: "Emprendedurismo e Innovación en Ingeniería", cred: 2, prq: [] },
-                        { codigo: "2503242", nombre: "Circuitos Electrónicos", cred: 3, prq: ["2503134"] },
-                        { codigo: "2503243", nombre: "Laboratorio de Circuitos Electrónicos", cred: 1, prq: ["2503134"] },
-                        { codigo: "2503244", nombre: "Telecomunicaciones II", cred: 3, prq: ["2503137"] },
-                        { codigo: "2503245", nombre: "Ingeniería de Mantenimiento (E)", cred: 3, prq: [] },
-                        { codigo: "2503246", nombre: "Sistemas Operativos (E)", cred: 2, prq: [] },
-                        { codigo: "2503247", nombre: "Laboratorio de Sistemas Operativos (E)", cred: 1, prq: [] },
-                        { codigo: "2503248", nombre: "Sistemas Integrados de Gestión (E)", cred: 2, prq: ["2503132"] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Cuarto Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "2504149", nombre: "Ética General y Deontología", cred: 1, prq: [] },
-                        { codigo: "2504150", nombre: "Fundamentos de la Ciencia de los Datos", cred: 2, prq: [] },
-                        { codigo: "2504151", nombre: "Procesamiento Digital de Señales", cred: 3, prq: ["2503239", "2503240"] },
-                        { codigo: "2504152", nombre: "Laboratorio de Procesamiento Digital de Señales", cred: 1, prq: ["2503239", "2503240"] },
-                        { codigo: "2504153", nombre: "Internetworking I", cred: 3, prq: ["2503239", "2503240"] },
-                        { codigo: "2504154", nombre: "Laboratorio de Internetworking I", cred: 1, prq: ["2503239", "2503240"] },
-                        { codigo: "2504155", nombre: "Líneas de Transmisión", cred: 3, prq: ["2503242", "2503243", "2503244"] },
-                        { codigo: "2504156", nombre: "Radio Digital (E)", cred: 2, prq: [] },
-                        { codigo: "2504157", nombre: "Laboratorio de Radio Digital (E)", cred: 1, prq: [] },
-                        { codigo: "2504158", nombre: "Smart Cities (E)", cred: 2, prq: [] },
-                        { codigo: "2504159", nombre: "Automatización y Control (E)", cred: 2, prq: [] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "2504260", nombre: "Machine Learning", cred: 3, prq: ["2504151", "2504152"] },
-                        { codigo: "2504261", nombre: "Gestión de Proyectos", cred: 3, prq: ["2503241"] },
-                        { codigo: "2504262", nombre: "Ingeniería de Microondas", cred: 3, prq: ["2504155"] },
-                        { codigo: "2504263", nombre: "Laboratorio de Ingeniería de Microondas", cred: 1, prq: ["2504155"] },
-                        { codigo: "2504264", nombre: "Internetworking II", cred: 3, prq: ["2504153", "2504154"] },
-                        { codigo: "2504265", nombre: "Laboratorio de Internetworking II", cred: 1, prq: ["2504153", "2504154"] },
-                        { codigo: "2504266", nombre: "Dispositivos de Fibra Óptica", cred: 3, prq: ["2504155"] },
-                        { codigo: "2504267", nombre: "Laboratorio de Dispositivos de Fibra Óptica", cred: 1, prq: ["2504155"] },
-                        { codigo: "2504268", nombre: "Diseño de Redes Informáticas (E)", cred: 2, prq: [] },
-                        { codigo: "2504269", nombre: "Laboratorio de Diseño de Redes Informáticas (E)", cred: 1, prq: [] },
-                        { codigo: "2504270", nombre: "Ingeniería de Sonido y Video Digital (E)", cred: 2, prq: [] }
-                    ]}
-                ]
-            },
-            {
-                numero: "Quinto Año",
-                semestres: [
-                    { nombre: "Primer Semestre", cursos: [
-                        { codigo: "2505171", nombre: "Antenas y Compatibilidad Electromagnética", cred: 4, prq: ["2504262", "2504263"] },
-                        { codigo: "2505172", nombre: "Laboratorio de Antenas y Compatibilidad Electromagnética", cred: 1, prq: ["2504262", "2504263"] },
-                        { codigo: "2505173", nombre: "Ciberseguridad para Telecomunicaciones", cred: 3, prq: ["2504264", "2504265"] },
-                        { codigo: "2505174", nombre: "Proyecto Final", cred: 4, prq: ["2504261"] },
-                        { codigo: "2505175", nombre: "Gestión de Redes", cred: 4, prq: ["2504261"] },
-                        { codigo: "2505176", nombre: "Redes de Comunicaciones Ópticas", cred: 3, prq: ["2504266", "2504267"] },
-                        { codigo: "2505177", nombre: "Laboratorio de Redes de Comunicaciones Ópticas", cred: 1, prq: ["2504266", "2504267"] },
-                        { codigo: "2505178", nombre: "Inteligencia Artificial para Telecomunicaciones (E)", cred: 3, prq: [] },
-                        { codigo: "2505179", nombre: "Ingeniería de Radar (E)", cred: 3, prq: [] }
-                    ]},
-                    { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "2505280", nombre: "Comunicaciones Inalámbricas", cred: 3, prq: ["2505171", "2505172"] },
-                        { codigo: "2505281", nombre: "Laboratorio de Comunicaciones Inalámbricas", cred: 1, prq: ["2505171", "2505172"] },
-                        { codigo: "2505282", nombre: "Comunicación Satelital", cred: 3, prq: ["2505171", "2505172"] },
-                        { codigo: "2505283", nombre: "Laboratorio de Comunicación Satelital", cred: 1, prq: ["2505171", "2505172"] },
-                        { codigo: "2505284", nombre: "Trabajo de Investigación", cred: 4, prq: ["2505174"] },
-                        { codigo: "2505285", nombre: "Prácticas Pre-Profesionales", cred: 2, prq: [] },
-                        { codigo: "2505286", nombre: "Legislación y Regulación en Telecomunicaciones (E)", cred: 3, prq: [] },
-                        { codigo: "2505287", nombre: "Seminario de Tesis (E)", cred: 3, prq: [] },
-                        { codigo: "2505288", nombre: "Tecnologías Emergentes (E)", cred: 3, prq: [] }
-                    ]}
-                ]
-            }
-        ]
-    }
-};
-
-/* =======================================================
-   ESTADO Y UTILIDADES
-======================================================= */
-let state = {
-  plan: "2025",
-  view: "semestre",      // "semestre" | "malla"
-  semIndex: 0,
-  query: ""
-};
-
-const ORDINALES = ["1er","2do","3er","4to","5to","6to","7mo","8vo","9no","10mo"];
-
-function isElectivo(nombre){ return /\(E\)\s*$/.test(nombre.trim()); }
-function nombreLimpio(nombre){ return nombre.replace(/\s*\(E\)\s*$/,'').trim(); }
-
-function getSemestresFlat(planKey){
-  const plan = planesEstudio[planKey];
-  const out = [];
-  plan.anios.forEach((anio, ai) => {
-    anio.semestres.forEach((sem, si) => {
-      out.push({
-        index: out.length,
-        anio: anio.numero,
-        nombreSemestre: sem.nombre,
-        cursos: sem.cursos
-      });
-    });
+  // pequeños atajos de navegación del header hacia los controles principales
+  document.getElementById('btnExplorar').addEventListener('click', () => {
+    document.getElementById('tabSemestre').click();
+    document.querySelector('.layout').scrollIntoView({ behavior: 'smooth' });
   });
-  return out;
-}
-
-function getCourseMap(planKey){
-  const map = {};
-  planesEstudio[planKey].anios.forEach(anio => {
-    anio.semestres.forEach(sem => {
-      sem.cursos.forEach(c => { map[c.codigo] = c; });
-    });
+  document.getElementById('btnVerMalla').addEventListener('click', () => {
+    document.getElementById('tabMalla').click();
+    document.querySelector('.layout').scrollIntoView({ behavior: 'smooth' });
   });
-  return map;
-}
-
-function getPlanStats(planKey){
-  let cursos = 0, creditos = 0, electivos = 0;
-  planesEstudio[planKey].anios.forEach(anio => {
-    anio.semestres.forEach(sem => {
-      sem.cursos.forEach(c => {
-        cursos++; creditos += c.cred;
-        if (isElectivo(c.nombre)) electivos++;
-      });
-    });
-  });
-  return { cursos, creditos, electivos };
-}
-
-const ICONS = {
-  silabo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 4h9l3 3v13H6z"/><path d="M15 4v3h3"/></svg>',
-  practica: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
-  examen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>'
-};
-
-/* =======================================================
-   RENDER: cabecera / stats / selects
-======================================================= */
-function fillPlanSelect(){
-  const sel = document.getElementById('selectPlan');
-  sel.innerHTML = Object.keys(planesEstudio).map(k =>
-    `<option value="${k}" ${k===state.plan?'selected':''}>Plan ${k}</option>`
-  ).join('');
-  sel.addEventListener('change', e => {
-    state.plan = e.target.value;
-    state.semIndex = 0;
-    renderAll();
-  });
-}
-
-function renderHeroStats(){
-  const s = getPlanStats(state.plan);
-  document.getElementById('statCursos').textContent = s.cursos;
-  document.getElementById('statCreditos').textContent = s.creditos;
-  document.getElementById('statElectivos').textContent = s.electivos;
-
-  document.getElementById('planSummary').innerHTML = `
-    <div class="row"><span>Plan vigente</span><b>${planesEstudio[state.plan].nombre.replace('Plan de Estudios ','')}</b></div>
-    <div class="row"><span>Años</span><b>${planesEstudio[state.plan].anios.length}</b></div>
-    <div class="row"><span>Semestres</span><b>${getSemestresFlat(state.plan).length}</b></div>
-    <div class="row"><span>Cursos totales</span><b>${s.cursos}</b></div>
-    <div class="row"><span>Créditos totales</span><b>${s.creditos}</b></div>
-  `;
-}
-
-function renderSemNav(){
-  const wrap = document.getElementById('semNavWrap');
-  if (state.view !== 'semestre'){ wrap.style.display = 'none'; return; }
-  wrap.style.display = 'flex';
-  const flat = getSemestresFlat(state.plan);
-  wrap.innerHTML = flat.map(s => `
-    <div class="sem-pill ${s.index===state.semIndex?'active':''}" data-i="${s.index}" role="tab" tabindex="0">
-      <span class="ch">${s.anio.toUpperCase()}</span>
-      <span class="lb">${ORDINALES[s.index%2===0?0:1] || ''} ${s.nombreSemestre.replace('Semestre','Sem.')}</span>
-    </div>
-  `).join('');
-  wrap.querySelectorAll('.sem-pill').forEach(el => {
-    const go = () => { state.semIndex = parseInt(el.dataset.i,10); renderMain(); renderSemNav(); };
-    el.addEventListener('click', go);
-    el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
-  });
-}
-
-/* =======================================================
-   RENDER: tarjeta de curso (vista semestre)
-======================================================= */
-function courseCard(curso, courseMap){
-  const elective = isElectivo(curso.nombre);
-  const nombre = nombreLimpio(curso.nombre);
-  const prqHtml = (curso.prq && curso.prq.length)
-    ? `<div class="prq-row">` + curso.prq.map(code => {
-        const c = courseMap[code];
-        const label = c ? nombreLimpio(c.nombre) : code;
-        return `<span class="prq-chip" title="${code}${c ? ' · ' + label : ''}">→ ${label.length > 22 ? label.slice(0,20)+'…' : label}</span>`;
-      }).join('') + `</div>`
-    : `<span class="prq-none">Sin prerrequisitos</span>`;
-
-  return `
-    <div class="course-card ${elective?'elective':''}">
-      <div class="course-top">
-        <div class="course-name">${nombre}</div>
-        <div class="course-cred">${curso.cred} cr</div>
-      </div>
-      <div class="course-code">Cód. ${curso.codigo}</div>
-      ${elective ? `<div class="badge-row"><span class="badge elective">Electivo</span></div>` : ``}
-      ${prqHtml}
-      <div class="materials">
-        <div class="mat-btn" title="Sílabo" onclick="alert('Aquí se enlazaría el sílabo del curso ${curso.codigo}.')">${ICONS.silabo}<span class="l">Sílabo</span></div>
-        <div class="mat-btn" title="Prácticas" onclick="alert('Aquí se enlazarían las prácticas del curso ${curso.codigo}.')">${ICONS.practica}<span class="l">Prácticas</span></div>
-        <div class="mat-btn" title="Exámenes" onclick="alert('Aquí se enlazarían los exámenes del curso ${curso.codigo}.')">${ICONS.examen}<span class="l">Exámenes</span></div>
-      </div>
-    </div>
-  `;
-}
-
-/* =======================================================
-   RENDER: vista semestre / búsqueda / malla completa
-======================================================= */
-function renderMain(){
-  const main = document.getElementById('mainContent');
-  const courseMap = getCourseMap(state.plan);
-
-  if (state.query.trim().length > 0){
-    renderSemNavVisibility(false);
-    const q = state.query.trim().toLowerCase();
-    let matches = [];
-    Object.values(courseMap).forEach(c => {
-      if (c.nombre.toLowerCase().includes(q) || c.codigo.toLowerCase().includes(q)) matches.push(c);
-    });
-    main.innerHTML = `
-      <div class="section-title"><h2>Resultados de búsqueda</h2><span class="meta">${matches.length} curso(s)</span></div>
-      <p class="search-results-note">Buscando <b>"${state.query}"</b> en ${planesEstudio[state.plan].nombre}</p>
-      <div class="course-grid">
-        ${matches.length ? matches.map(c => courseCard(c, courseMap)).join('') : '<p style="color:var(--text-faint)">No se encontraron cursos.</p>'}
-      </div>
-    `;
-    return;
-  }
-
-  renderSemNavVisibility(state.view === 'semestre');
-
-  if (state.view === 'semestre'){
-    const flat = getSemestresFlat(state.plan);
-    const sem = flat[state.semIndex] || flat[0];
-    main.innerHTML = `
-      <div class="section-title">
-        <h2>${sem.anio} · ${sem.nombreSemestre}</h2>
-        <span class="meta">${sem.cursos.length} cursos</span>
-      </div>
-      <div class="course-grid">
-        ${sem.cursos.map(c => courseCard(c, courseMap)).join('')}
-      </div>
-    `;
-  } else {
-    // Vista malla completa
-    const plan = planesEstudio[state.plan];
-    main.innerHTML = `
-      <div class="section-title">
-        <h2>Malla completa — ${plan.nombre}</h2>
-        <span class="meta">Desliza horizontalmente →</span>
-      </div>
-      <div class="malla">
-        ${plan.anios.map(anio => `
-          <div class="anio-col">
-            <h3 class="anio-titulo">${anio.numero}</h3>
-            ${anio.semestres.map(sem => `
-              <div class="sem-block">
-                <p class="sem-block-title">${sem.nombre}</p>
-                ${sem.cursos.map(c => {
-                  const elective = isElectivo(c.nombre);
-                  const prq = (c.prq && c.prq.length) ? `Prerreq: ${c.prq.join(', ')}` : 'Sin prerrequisito';
-                  return `
-                    <div class="mini-card ${elective?'elective':''}">
-                      <div class="mini-top"><span>${nombreLimpio(c.nombre)}</span><span class="mini-cred">${c.cred}cr</span></div>
-                      <div class="mini-info">${c.codigo} · ${prq}</div>
-                    </div>
-                  `;
-                }).join('')}
-              </div>
-            `).join('')}
-          </div>
-        `).join('')}
-      </div>
-    `;
-  }
-}
-
-function renderSemNavVisibility(show){
-  document.getElementById('semNavWrap').style.display = show ? 'flex' : 'none';
-}
-
-/* =======================================================
-   INIT
-======================================================= */
-function renderAll(){
-  renderHeroStats();
-  renderSemNav();
-  renderMain();
-}
-
-document.getElementById('tabSemestre').addEventListener('click', () => {
-  state.view = 'semestre';
-  document.getElementById('tabSemestre').classList.add('active');
-  document.getElementById('tabMalla').classList.remove('active');
-  renderSemNav();
-  renderMain();
-});
-document.getElementById('tabMalla').addEventListener('click', () => {
-  state.view = 'malla';
-  document.getElementById('tabMalla').classList.add('active');
-  document.getElementById('tabSemestre').classList.remove('active');
-  renderSemNav();
-  renderMain();
-});
-
-let searchTimeout;
-document.getElementById('searchInput').addEventListener('input', e => {
-  clearTimeout(searchTimeout);
-  searchTimeout = setTimeout(() => {
-    state.query = e.target.value;
-    renderMain();
-  }, 150);
-});
-
-fillPlanSelect();
-renderAll();
+  document.getElementById('navCursos').addEventListener('click', () => document.getElementById('btnExplorar').click());
+  document.getElementById('navMalla').addEventListener('click', () => document.getElementById('btnVerMalla').click());
 </script>
 </body>
 </html>
