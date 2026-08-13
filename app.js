@@ -131,7 +131,6 @@ function courseCard(curso, courseMap){
       }).join('') + `</div>`
     : `<span class="prq-none">Sin prerrequisitos</span>`;
 
-  // Aseguramos pasar las propiedades o null/undefined
   const silaboUrl = curso.silabo ? `'${curso.silabo}'` : 'null';
   const practicasUrl = curso.practicas ? `'${curso.practicas}'` : 'null';
   const examenesUrl = curso.examenes ? `'${curso.examenes}'` : 'null';
