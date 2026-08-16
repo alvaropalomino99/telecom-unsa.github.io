@@ -57,11 +57,11 @@ const planesEstudio = {
                 numero: "Tercer Año",
                 semestres: [
                     { nombre: "Primer Semestre", cursos: [
-                        { codigo: "1703133", nombre: "Liderazgo y Comportamiento Organizacional", cred: 1, prq: ["1702225"] },
-                        { codigo: "1703134", nombre: "Problemas Actuales de la Sociedad", cred: 1, prq: [] },
-                        { codigo: "1703135", nombre: "Telecomunicaciones 1", cred: 3, prq: ["1702227"] },
-                        { codigo: "1703137", nombre: "Sistemas Digitales", cred: 3, prq: ["1702229"] },
-                        { codigo: "1703138", nombre: "Inglés Básico", cred: 1, prq: [] },
+                        { codigo: "1703133", nombre: "Liderazgo y Comportamiento Organizacional", cred: 2, prq: ["1702225"] },
+                        { codigo: "1703134", nombre: "Problemas Actuales de la Sociedad", cred: 2, prq: [] },
+                        { codigo: "1703135", nombre: "Telecomunicaciones 1", cred: 4, prq: ["1702227"] },
+                        { codigo: "1703137", nombre: "Sistemas Digitales", cred: 4, prq: ["1702229"] },
+                        { codigo: "1703138", nombre: "Inglés Básico", cred: 2, prq: [80 creditos] },
                         { codigo: "1703139", nombre: "Sistemas de Control (E)", cred: 3, prq: ["1702229"] },
                         { codigo: "1703140", nombre: "Electrónica Industrial (E)", cred: 3, prq: ["1702229", "1702230"] }, 
                        { 
@@ -74,8 +74,8 @@ const planesEstudio = {
                         { codigo: "1703179", nombre: "Laboratorio de Procesamiento Digital de Señales", cred: 1, prq: ["1702228"] }
                     ]},
                     { nombre: "Segundo Semestre", cursos: [
-                        { codigo: "1703241", nombre: "Perspectiva y Enfoque de la Investigación Científica", cred: 2, prq: ["1702225"] },
-                        { codigo: "1703243", nombre: "Telecomunicaciones 2", cred: 3, prq: ["1703135"] },
+                        { codigo: "1703241", nombre: "Perspectiva y Enfoque de la Investigación Científica", cred: 3, prq: ["1702225"] },
+                        { codigo: "1703243", nombre: "Telecomunicaciones 2", cred: 4, prq: ["1703135"] },
                         { codigo: "1703246", nombre: "Dinámica de Sistemas (E)", cred: 3, prq: ["1702229"] },
                         { codigo: "1703247", nombre: "Smart Cities (E)", cred: 3, prq: ["1702123", "1703135"] },
                         { codigo: "1703275", nombre: "Campos Electromagnéticos", cred: 4, prq: ["1703178", "1703179"] },
@@ -90,7 +90,7 @@ const planesEstudio = {
                 numero: "Cuarto Año",
                 semestres: [
                     { nombre: "Primer Semestre", cursos: [
-                        { codigo: "1704148", nombre: "Ética General y Profesional", cred: 1, prq: [] },
+                        { codigo: "1704148", nombre: "Ética General y Profesional", cred: 2, prq: [] },
                         { codigo: "1704152", nombre: "Ingeniería de Mantenimiento (E)", cred: 3, prq: ["1702124", "1702230"] },
                         { codigo: "1704153", nombre: "Comunicación Industrial (E)", cred: 3, prq: ["1703139"] },
                         { codigo: "1704184", nombre: "Microprocesador y Microcontrolador", cred: 3, prq: ["1703137"] },
