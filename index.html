@@ -4,23 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Telecom UNSA — Repositorio Estudiantil</title>
-<meta name="description" content="Repositorio estudiantil no oficial de Ingeniería en Telecomunicaciones (UNSA): malla curricular, prerrequisitos y material de cursos compartido por la comunidad.">
-<meta name="theme-color" content="#0f1720">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23111827'/%3E%3Cpath d='M12 20v-6M8 20v-3M16 20v-9M6 9a6 6 0 0 1 12 0' stroke='%23E8B04B' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
-<!-- Librerías de Three.js para cargar tu modelo FBX -->
+<!-- Librerías de Three.js para cargar archivos FBX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-
-<a class="skip-link" href="#mainContent">Saltar al contenido principal</a>
 
 <div class="topbar">
   <div class="wrap topbar-inner">
@@ -29,20 +24,18 @@
       <span class="brand-word">Telecom UNSA</span>
     </a>
     <ul class="nav-links">
-      <li><button type="button" class="link-btn" id="navCursos">Cursos</button></li>
-      <li><button type="button" class="link-btn" id="navMalla">Malla</button></li>
+      <li><a id="navCursos">Cursos</a></li>
+      <li><a id="navMalla">Malla</a></li>
       <li><a href="#material">Material</a></li>
       <li><a href="#comunidad">Comunidad</a></li>
     </ul>
     <div class="topbar-actions">
       <div class="search-box">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <label class="sr-only" for="searchInput">Buscar curso o código</label>
-        <input id="searchInput" type="text" placeholder="Buscar curso o código…" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="searchInput" type="text" placeholder="Buscar curso o código…">
       </div>
-      <label class="sr-only" for="selectPlan">Plan de estudios</label>
       <select id="selectPlan" class="select-plan"></select>
-      <button class="btn btn-gold btn-sm" id="btnUploadTop" type="button">Subir material</button>
+      <button class="btn btn-gold btn-sm" onclick="alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).')">Subir material</button>
     </div>
   </div>
 </div>
@@ -54,8 +47,8 @@
       <h1 class="headline">Tu malla,<em>tus sílabos.</em></h1>
       <p class="hero-sub">Explora el plan de estudios semestre a semestre, revisa prerrequisitos al instante y encuentra —o sube— el material que la comunidad va compartiendo.</p>
       <div class="hero-actions">
-        <button class="btn btn-gold" id="btnExplorar" type="button">Explorar cursos</button>
-        <button class="btn btn-outline" id="btnVerMalla" type="button">Ver malla completa</button>
+        <button class="btn btn-gold" id="btnExplorar">Explorar cursos</button>
+        <button class="btn btn-outline" id="btnVerMalla">Ver malla completa</button>
       </div>
       <div class="hero-stats">
         <div class="stat"><b id="statCursos">–</b><span>Cursos</span></div>
@@ -64,9 +57,9 @@
       </div>
     </div>
 
-    <!-- Visor 3D con Three.js para tu modelo FBX -->
+    <!-- Visor 3D con Three.js para FBX -->
     <div class="hero-visual">
-      <div id="container3d" role="img" aria-label="Modelo 3D interactivo, arrastra para rotar"></div>
+      <div id="container3d" style="width: 100%; height: 400px;"></div>
     </div>
   </section>
 
@@ -74,8 +67,8 @@
 
   <div class="controls-row">
     <div class="view-toggle" role="tablist">
-      <button id="tabSemestre" class="active" type="button" role="tab" aria-selected="true">Vista por semestre</button>
-      <button id="tabMalla" type="button" role="tab" aria-selected="false">Malla completa</button>
+      <button id="tabSemestre" class="active">Vista por semestre</button>
+      <button id="tabMalla">Malla completa</button>
     </div>
   </div>
 
@@ -90,7 +83,7 @@
       <div class="side-card upload-card">
         <h3>Sube tu material</h3>
         <p>Comparte sílabos, prácticas o exámenes resueltos con tus compañeros de carrera.</p>
-        <button class="btn btn-gold btn-block" id="btnUploadSide" type="button">Formulario colaborativo</button>
+        <button class="btn btn-gold btn-block" onclick="alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).')">Formulario colaborativo</button>
       </div>
 
       <div class="side-card">
@@ -101,17 +94,17 @@
       <div class="side-card">
         <h3>Enlaces útiles</h3>
         <ul class="link-list">
-          <li><a href="https://www.unsa.edu.pe/enlace/aula-virtual/" target="_blank" rel="noopener noreferrer">Aula Virtual UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
-          <li><a href="http://bibliotecavirtual.unsa.edu.pe:8009" target="_blank" rel="noopener noreferrer">Biblioteca Virtual UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer" data-pending-link="true">Escuela de Telecomunicaciones <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
-          <li><a href="#" target="_blank" rel="noopener noreferrer" data-pending-link="true">SUM UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+          <li><a href="#" target="_blank">Aula Virtual UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+          <li><a href="#" target="_blank">Biblioteca UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+          <li><a href="#" target="_blank">Escuela de Telecomunicaciones <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+          <li><a href="#" target="_blank">SUM UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
         </ul>
       </div>
 
       <div class="side-card">
         <h3>Lo último subido</h3>
         <div class="empty-state">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
           <p>Todavía no hay material subido.<br>Sé el primero en aportar algo.</p>
         </div>
       </div>
@@ -119,7 +112,7 @@
       <div class="side-card">
         <h3>Profesores recomendados</h3>
         <div class="empty-state">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
           <p>Aún sin reseñas.<br>Se irán mostrando conforme la comunidad opine.</p>
         </div>
       </div>
@@ -137,114 +130,79 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 <script>
-(function () {
-  // --- Utilidades de accesibilidad/estado compartido para los botones de subida ---
-  function handleUploadClick() {
-    // TODO: reemplaza esto por el enlace real a tu Google Form / Drive de carga.
-    alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).');
-  }
-  var btnTop = document.getElementById('btnUploadTop');
-  var btnSide = document.getElementById('btnUploadSide');
-  if (btnTop) btnTop.addEventListener('click', handleUploadClick);
-  if (btnSide) btnSide.addEventListener('click', handleUploadClick);
-
-  // --- Visor 3D: carga tu modelo FBX ---
-  var container = document.getElementById('container3d');
-  if (!container) return;
-
-  // Si el navegador no soporta WebGL, mostramos un contenedor estático
-  // en vez de dejar la sección en blanco.
-  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var supportsWebGL = (function () {
-    try {
-      var c = document.createElement('canvas');
-      return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl')));
-    } catch (e) { return false; }
-  })();
-
-  if (typeof THREE === 'undefined' || !supportsWebGL) {
-    container.classList.add('viz-fallback');
-    return;
-  }
-
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  const container = document.getElementById('container3d');
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
   camera.position.set(0, 5, 15);
 
-  var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(window.devicePixelRatio);
   container.appendChild(renderer.domElement);
 
   // Iluminación
-  var ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
   scene.add(ambientLight);
 
-  var dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
   dirLight.position.set(10, 20, 10);
   scene.add(dirLight);
 
   // Controles interactivos con el mouse
-  var controls = new THREE.OrbitControls(camera, renderer.domElement);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
-  controls.autoRotate = false;
 
-  var model;
-  var loader = new THREE.FBXLoader();
-  loader.load('Maybach_DS8_Zeppelin_FBX.fbx', function (object) {
+  let model;
+  const loader = new THREE.FBXLoader();
+  loader.load('Maybach_DS8_Zeppelin_FBX.fbx', (object) => {
     model = object;
-
+    
     // Corregir orientación inicial (poner sobre sus ruedas)
     object.rotation.x = -Math.PI / 2;
 
-    // Ajuste de escala para agrandar el modelo
-    var box = new THREE.Box3().setFromObject(object);
-    var center = box.getCenter(new THREE.Vector3());
-    var size = box.getSize(new THREE.Vector3());
-    var maxDim = Math.max(size.x, size.y, size.z);
-
-    var scale = 12 / maxDim; // Si lo quieres aún más grande, aumenta a 14 o 15
+    // Ajuste de escala para agrandar el auto
+    const box = new THREE.Box3().setFromObject(object);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    
+    const scale = 12 / maxDim; // Si lo quieres aún más grande, aumenta a 14 o 15
     object.scale.set(scale, scale, scale);
     object.position.sub(center.multiplyScalar(scale));
 
     scene.add(object);
-  }, undefined, function (error) {
+  }, undefined, (error) => {
     console.error('Error cargando el modelo FBX:', error);
-    container.classList.add('viz-fallback');
   });
 
-  // Animación de rotación horizontal (respeta "reduce motion")
+  // Animación de rotación horizontal
   function animate() {
     requestAnimationFrame(animate);
-    if (model && !prefersReducedMotion) model.rotation.z += 0.005; // Gira hacia los costados
+    if (model) model.rotation.z += 0.005; // Gira hacia los costados
     controls.update();
     renderer.render(scene, camera);
   }
   animate();
 
   // Ajuste responsive en cambio de tamaño de ventana
-  window.addEventListener('resize', function () {
+  window.addEventListener('resize', () => {
     camera.aspect = container.clientWidth / container.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
   });
 
-  // --- Atajos del menú ---
-  document.getElementById('btnExplorar').addEventListener('click', function () {
+  // Atajos del menú
+  document.getElementById('btnExplorar').addEventListener('click', () => {
     document.getElementById('tabSemestre').click();
     document.querySelector('.layout').scrollIntoView({ behavior: 'smooth' });
   });
-  document.getElementById('btnVerMalla').addEventListener('click', function () {
+  document.getElementById('btnVerMalla').addEventListener('click', () => {
     document.getElementById('tabMalla').click();
     document.querySelector('.layout').scrollIntoView({ behavior: 'smooth' });
   });
-  document.getElementById('navCursos').addEventListener('click', function () {
-    document.getElementById('btnExplorar').click();
-  });
-  document.getElementById('navMalla').addEventListener('click', function () {
-    document.getElementById('btnVerMalla').click();
-  });
-})();
+  document.getElementById('navCursos').addEventListener('click', () => document.getElementById('btnExplorar').click());
+  document.getElementById('navMalla').addEventListener('click', () => document.getElementById('btnVerMalla').click());
 </script>
 </body>
 </html>
