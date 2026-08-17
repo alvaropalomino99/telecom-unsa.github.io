@@ -1,149 +1,338 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Telecom UNSA — Repositorio Estudiantil</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="style.css">
-<!-- Librería para el modelo 3D -->
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
 </head>
+
 <body>
 
+
+
 <div class="topbar">
+
   <div class="wrap topbar-inner">
+
     <a class="brand" href="#top">
+
       <span class="brand-mark"><span></span></span>
+
       <span class="brand-word">Telecom UNSA</span>
+
     </a>
+
     <ul class="nav-links">
+
       <li><a id="navCursos">Cursos</a></li>
+
       <li><a id="navMalla">Malla</a></li>
+
       <li><a href="#material">Material</a></li>
+
       <li><a href="#comunidad">Comunidad</a></li>
+
     </ul>
+
     <div class="topbar-actions">
+
       <div class="search-box">
+
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+
         <input id="searchInput" type="text" placeholder="Buscar curso o código…">
+
       </div>
+
       <select id="selectPlan" class="select-plan"></select>
+
       <button class="btn btn-gold btn-sm" onclick="alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).')">Subir material</button>
+
     </div>
+
   </div>
+
 </div>
 
+
+
 <div class="wrap">
+
   <section class="hero" id="top">
+
     <div>
+
       <div class="eyebrow-pill"><span class="dot"></span> Ingeniería en Telecomunicaciones</div>
+
       <h1 class="headline">Tu malla,<em>tus sílabos.</em></h1>
+
       <p class="hero-sub">Explora el plan de estudios semestre a semestre, revisa prerrequisitos al instante y encuentra —o sube— el material que la comunidad va compartiendo.</p>
+
       <div class="hero-actions">
+
         <button class="btn btn-gold" id="btnExplorar">Explorar cursos</button>
+
         <button class="btn btn-outline" id="btnVerMalla">Ver malla completa</button>
+
       </div>
+
       <div class="hero-stats">
+
         <div class="stat"><b id="statCursos">–</b><span>Cursos</span></div>
+
         <div class="stat"><b id="statCreditos">–</b><span>Créditos</span></div>
+
         <div class="stat"><b id="statElectivos">–</b><span>Electivos</span></div>
+
       </div>
+
     </div>
 
-    <!-- Figura 3D integrada -->
-    <div class="hero-visual">
-      <model-viewer 
-        src="build.glb" 
-        alt="Figura 3D Telecom UNSA" 
-        auto-rotate 
-        camera-controls 
-        shadow-intensity="1"
-        style="width: 100%; height: 400px; background: transparent;">
-      </model-viewer>
+
+
+    <div class="hero-visual" aria-hidden="true">
+
+      <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Peldaño 1 -->
+
+        <polygon points="150,330 190,330 190,420 150,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
+
+        <polygon points="40,350 150,350 190,330 80,330" fill="#1E1E1E" stroke="rgba(255,255,255,0.08)"/>
+
+        <rect x="40" y="350" width="110" height="90" fill="#141414" stroke="rgba(255,255,255,0.08)"/>
+
+
+
+        <!-- Peldaño 2 -->
+
+        <polygon points="280,270 320,270 320,420 280,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
+
+        <polygon points="170,290 280,290 320,270 210,270" fill="#1E1E1E" stroke="rgba(255,255,255,0.08)"/>
+
+        <rect x="170" y="290" width="110" height="150" fill="#141414" stroke="rgba(255,255,255,0.08)"/>
+
+
+
+        <!-- Peldaño 3 (más alto) -->
+
+        <polygon points="410,190 450,190 450,420 410,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
+
+        <polygon points="300,210 410,210 450,190 340,190" fill="#232323" stroke="rgba(232,185,35,0.35)"/>
+
+        <rect x="300" y="210" width="110" height="230" fill="#161616" stroke="rgba(255,255,255,0.08)"/>
+
+        <line x1="300" y1="210" x2="410" y2="210" stroke="#E8B923" stroke-width="2"/>
+
+
+
+        <!-- Medallón -->
+
+        <g class="spin-ring">
+
+          <circle cx="420" cy="140" r="80" fill="none" stroke="#E8B923" stroke-width="1.4" stroke-dasharray="3 6" opacity="0.8"/>
+
+        </g>
+
+        <circle cx="420" cy="140" r="62" fill="#141414" stroke="rgba(232,185,35,0.5)" stroke-width="1.5"/>
+
+        <circle cx="420" cy="140" r="62" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
+
+        <!-- icono de señal / antena -->
+
+        <g stroke="#E8B923" stroke-width="2.4" fill="none" stroke-linecap="round">
+
+          <path d="M420 160v-38"/>
+
+          <circle cx="420" cy="118" r="3" fill="#E8B923" stroke="none"/>
+
+          <path d="M405 130a22 22 0 0130 0" opacity="0.85"/>
+
+          <path d="M394 141a38 38 0 0152 0" opacity="0.55"/>
+
+        </g>
+
+      </svg>
+
     </div>
+
   </section>
+
+
 
   <hr class="hairline">
 
+
+
   <div class="controls-row">
+
     <div class="view-toggle" role="tablist">
+
       <button id="tabSemestre" class="active">Vista por semestre</button>
+
       <button id="tabMalla">Malla completa</button>
+
     </div>
+
   </div>
+
+
 
   <div id="semNavWrap" class="sem-nav" role="tablist"></div>
 
+
+
   <div class="layout" id="material">
+
     <main>
+
       <div id="mainContent"></div>
+
     </main>
 
+
+
     <aside id="comunidad">
+
       <div class="side-card upload-card">
+
         <h3>Sube tu material</h3>
+
         <p>Comparte sílabos, prácticas o exámenes resueltos con tus compañeros de carrera.</p>
+
         <button class="btn btn-gold btn-block" onclick="alert('Conecta este botón a tu formulario de carga (Google Form, Drive, etc.).')">Formulario colaborativo</button>
+
       </div>
 
+
+
       <div class="side-card">
+
         <h3>Este plan, en números</h3>
+
         <div class="plan-summary" id="planSummary"></div>
+
       </div>
 
+
+
       <div class="side-card">
+
         <h3>Enlaces útiles</h3>
+
         <ul class="link-list">
+
           <li><a href="#" target="_blank">Aula Virtual UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+
           <li><a href="#" target="_blank">Biblioteca UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+
           <li><a href="#" target="_blank">Escuela de Telecomunicaciones <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+
           <li><a href="#" target="_blank">SUM UNSA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg></a></li>
+
         </ul>
+
       </div>
 
+
+
       <div class="side-card">
+
         <h3>Lo último subido</h3>
+
         <div class="empty-state">
+
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+
           <p>Todavía no hay material subido.<br>Sé el primero en aportar algo.</p>
+
         </div>
+
       </div>
 
+
+
       <div class="side-card">
+
         <h3>Profesores recomendados</h3>
+
         <div class="empty-state">
+
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+
           <p>Aún sin reseñas.<br>Se irán mostrando conforme la comunidad opine.</p>
+
         </div>
+
       </div>
+
     </aside>
+
   </div>
 
+
+
   <footer>
+
     <div class="footer-row">
+
       <p>TELECOM UNSA · REPOSITORIO ESTUDIANTIL · NO OFICIAL</p>
+
       <a href="#">Contacto / Sobre nosotros</a>
+
     </div>
+
   </footer>
+
 </div>
 
+
+
 <script src="data.js"></script>
+
 <script src="app.js"></script>
+
 <script>
+
   // pequeños atajos de navegación del header hacia los controles principales
+
   document.getElementById('btnExplorar').addEventListener('click', () => {
+
     document.getElementById('tabSemestre').click();
+
     document.querySelector('.layout').scrollIntoView({ behavior: 'smooth' });
+
   });
+
   document.getElementById('btnVerMalla').addEventListener('click', () => {
+
     document.getElementById('tabMalla').click();
+
     document.querySelector('.layout').scrollIntoView({ behavior: 'smooth' });
+
   });
+
   document.getElementById('navCursos').addEventListener('click', () => document.getElementById('btnExplorar').click());
+
   document.getElementById('navMalla').addEventListener('click', () => document.getElementById('btnVerMalla').click());
+
 </script>
+
 </body>
-</html>
+
+</html> 
+
