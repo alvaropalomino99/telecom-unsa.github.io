@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<!-- Librería para el modelo 3D -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
 
@@ -51,38 +53,16 @@
       </div>
     </div>
 
-    <div class="hero-visual" aria-hidden="true">
-      <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg">
-        <!-- Peldaño 1 -->
-        <polygon points="150,330 190,330 190,420 150,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
-        <polygon points="40,350 150,350 190,330 80,330" fill="#1E1E1E" stroke="rgba(255,255,255,0.08)"/>
-        <rect x="40" y="350" width="110" height="90" fill="#141414" stroke="rgba(255,255,255,0.08)"/>
-
-        <!-- Peldaño 2 -->
-        <polygon points="280,270 320,270 320,420 280,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
-        <polygon points="170,290 280,290 320,270 210,270" fill="#1E1E1E" stroke="rgba(255,255,255,0.08)"/>
-        <rect x="170" y="290" width="110" height="150" fill="#141414" stroke="rgba(255,255,255,0.08)"/>
-
-        <!-- Peldaño 3 (más alto) -->
-        <polygon points="410,190 450,190 450,420 410,440" fill="#0C0C0C" stroke="rgba(255,255,255,0.08)"/>
-        <polygon points="300,210 410,210 450,190 340,190" fill="#232323" stroke="rgba(232,185,35,0.35)"/>
-        <rect x="300" y="210" width="110" height="230" fill="#161616" stroke="rgba(255,255,255,0.08)"/>
-        <line x1="300" y1="210" x2="410" y2="210" stroke="#E8B923" stroke-width="2"/>
-
-        <!-- Medallón -->
-        <g class="spin-ring">
-          <circle cx="420" cy="140" r="80" fill="none" stroke="#E8B923" stroke-width="1.4" stroke-dasharray="3 6" opacity="0.8"/>
-        </g>
-        <circle cx="420" cy="140" r="62" fill="#141414" stroke="rgba(232,185,35,0.5)" stroke-width="1.5"/>
-        <circle cx="420" cy="140" r="62" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
-        <!-- icono de señal / antena -->
-        <g stroke="#E8B923" stroke-width="2.4" fill="none" stroke-linecap="round">
-          <path d="M420 160v-38"/>
-          <circle cx="420" cy="118" r="3" fill="#E8B923" stroke="none"/>
-          <path d="M405 130a22 22 0 0130 0" opacity="0.85"/>
-          <path d="M394 141a38 38 0 0152 0" opacity="0.55"/>
-        </g>
-      </svg>
+    <!-- Figura 3D integrada -->
+    <div class="hero-visual">
+      <model-viewer 
+        src="build.glb" 
+        alt="Figura 3D Telecom UNSA" 
+        auto-rotate 
+        camera-controls 
+        shadow-intensity="1"
+        style="width: 100%; height: 400px; background: transparent;">
+      </model-viewer>
     </div>
   </section>
 
