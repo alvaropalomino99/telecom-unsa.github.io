@@ -8,8 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<!-- Librería para el modelo 3D -->
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+<!-- Librerías de Three.js para cargar archivos FBX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
 
@@ -53,16 +57,9 @@
       </div>
     </div>
 
-    <!-- Figura 3D integrada -->
+    <!-- Visor 3D con Three.js para archivo FBX -->
     <div class="hero-visual">
-      <model-viewer 
-        src="Maybach_DS8_Zeppelin_FBX.fbx" 
-        alt="Figura 3D Telecom UNSA" 
-        auto-rotate 
-        camera-controls 
-        shadow-intensity="1"
-        style="width: 100%; height: 400px; background: transparent;">
-      </model-viewer>
+      <div id="container3d" style="width: 100%; height: 400px;"></div>
     </div>
   </section>
 
@@ -133,7 +130,67 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 <script>
-  // pequeños atajos de navegación del header hacia los controles principales
+  // Script para inicializar y renderizar el archivo FBX con Three.js
+  const container = document.getElementById('container3d');
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 5, 15);
+
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  container.appendChild(renderer.domElement);
+
+  // Iluminación
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  scene.add(ambientLight);
+
+  const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+  dirLight.position.set(10, 20, 10);
+  scene.add(dirLight);
+
+  // Controles de cámara con el mouse/touch
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+
+  let model;
+  const loader = new THREE.FBXLoader();
+  loader.load('Maybach_DS8_Zeppelin_FBX.fbx', (object) => {
+    model = object;
+    
+    // Centrar y ajustar la escala automáticamente
+    const box = new THREE.Box3().setFromObject(object);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    
+    const scale = 5 / maxDim;
+    object.scale.set(scale, scale, scale);
+    object.position.sub(center.multiplyScalar(scale));
+
+    scene.add(object);
+  }, undefined, (error) => {
+    console.error('Error cargando el modelo FBX:', error);
+  });
+
+  // Animación / Rotación automática
+  function animate() {
+    requestAnimationFrame(animate);
+    if (model) model.rotation.y += 0.005; // rotación automática
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Ajustar tamaño al redimensionar la ventana
+  window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+
+  // Atajos del menú
   document.getElementById('btnExplorar').addEventListener('click', () => {
     document.getElementById('tabSemestre').click();
     document.querySelector('.layout').scrollIntoView({ behavior: 'smooth' });
